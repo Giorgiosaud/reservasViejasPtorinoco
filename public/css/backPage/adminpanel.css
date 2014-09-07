@@ -1,0 +1,99 @@
+
+@import url(http://fonts.googleapis.com/css?family=Architects+Daughter);
+input[type='text']{
+  width: 100%;
+}
+footer{
+  text-align: center;
+  background-color: grey;
+  padding: 1em;
+  margin: 1em 0 0;
+}
+@media print {
+ @page {size: landscape}
+}
+.panelSuperior{
+  float: left;
+}
+.cuposReserva {
+  width: 100%;
+}
+
+#imagenLogo{
+  width: 100%;
+}
+.margin{
+  margin-bottom: 1em;
+}
+.closeSession{
+  float: right;
+}
+#hora,option{
+  height: 2em;
+
+}
+.Boton{
+  color: #0f4ed8;
+}
+
+.Boton:hover{
+  cursor: hand;
+}
+.horadelpaseo * {
+  background-color: rgb(0, 194, 255)!important;
+}
+#Respuesta *{
+  text-align: center;
+}
+.headerSortUp {
+  background-image: url(images/header-asc.png);
+  background-repeat: no-repeat;
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #000;
+  border-top: 1px solid #FFF;
+  padding-left: 30px;
+  padding-top: 8px;
+  height: 100%;
+}
+.headerSortDown {
+  background-image: url(images/header-desc.png);
+  background-repeat: no-repeat;
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #000;
+  border-top: 1px solid #FFF;
+  padding-left: 30px;
+  padding-top: 8px;
+  height: 100%;
+}
+.header {
+  background-image: url(images/header-bg.png);
+  background-repeat: no-repeat;
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #000;
+  border-top: 1px solid #FFF;
+  padding-left: 30px;
+  padding-top: 8px;
+  height: 100%;
+}
+form{
+  /*width: 50%;*/
+  margin: auto;
+}
+#dk_container_tipoDeEmbarcacion{
+  padding: 0;
+}
+.icono{
+  height: 20px;
+  background: url('../imagenes/check-x.png');
+  background-size: cover;
+  width: 20px;
+  float: left;
+  margin-left: 3px;
+  cursor: pointer;
+}
+.aceptar {
+
+}
+.rechazarPago,.quitarPasajero,.borrarPasajero,.borrarPago,.rechazarPasajero{
+  background-position: -25px;
+}

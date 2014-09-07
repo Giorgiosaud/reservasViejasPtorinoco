@@ -1,0 +1,11 @@
+/* -----  Examples ------ */
+
+
+/* This will align images to the left */
+
+#printfriendly .hidden-print{
+visibility: hidden;
+}
+#printfriendly #mini{
+	font-size: 12px;
+}
