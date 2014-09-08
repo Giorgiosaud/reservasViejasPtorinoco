@@ -1,0 +1,33 @@
+.container{
+	max-width: none;
+	width: 888px;
+}
+#ui-datepicker-div{
+	z-index: 10 !important;
+}
+#informacionAdicional{
+	text-align: center;
+}
+#informacionAdicional span{
+	text-align: justify;
+}
+.informacion{
+	margin-top: 10%;
+	
+}
+#popup_title {
+background: #292c86 url(images/ui-bg_glass_45_292c86_1x400.png) 50% 50% repeat-x;
+color: white;
+}
+#popup_container {
+border: blueviolet 5px ridge;;
+}
+#sinPagoOnline {
+max-width: 340px;
+}
+#ayudaGC {
+max-width: 340px;
+}
+body{
+	background-color: transparent;
+}

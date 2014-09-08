@@ -14,8 +14,9 @@
 Route::get('/', function () {
 		return View::make('hello');
 	});
+Route::get('/reservar', 'ReservarController@mostrarFormulario');
 Route::get('/login', function () {
-		return View::make('backPage.main');
+		return View::make('backPage.login');
 
 	});
 Route::get('/initialize', function () {

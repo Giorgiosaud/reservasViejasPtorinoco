@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class Horas extends Migration {
+class CreatePaseosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -10,11 +10,17 @@ class Horas extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		//
-		Schema::create('horas', function ($table) {
+		Schema::create('paseos', function ($table) {
 				$table->increments('id');
 				$table->string('horaDeZarpeEscrita');
 				$table->string('orden');
+				$table->boolean('lunes');
+				$table->boolean('martes');
+				$table->boolean('miercoles');
+				$table->boolean('jueves');
+				$table->boolean('viernes');
+				$table->boolean('sabado');
+				$table->boolean('domingo');
 				$table->longText('referencias');
 				$table->timestamps();
 				$table->softDeletes();
@@ -27,8 +33,7 @@ class Horas extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		//
-		Schema::drop('horas');
+		Schema::drop('paseos');
 	}
 
 }

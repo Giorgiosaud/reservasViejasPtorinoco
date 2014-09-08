@@ -1,0 +1,1 @@
+{{ HTML::script('js/backpage/adminpanel.js') }}

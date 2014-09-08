@@ -13,7 +13,7 @@ class Reservas extends Migration {
 		//
 		Schema::create('reservas', function ($table) {
 				$table->increments('numeroDeReserva');
-				$table->integer('user_id')->unsigned();
+				$table->integer('cliente_id')->unsigned();
 				$table->date('fechaDelPaseo');
 				$table->integer('hora_id')->unsigned();
 				$table->integer('statusDelPago')->unsigned();

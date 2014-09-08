@@ -1,0 +1,18 @@
+.container{
+	max-width: none;
+	width: 888px;
+}
+#noMp {
+width: 250px;
+}
+#popup_title {
+background-color: blueviolet;
+color: white;
+background-image: none;
+}
+#popup_container {
+border: blueviolet 6px solid;
+}
+#ayudaGC {
+max-width: 340px;
+}

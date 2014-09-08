@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	@include('includes.head')
+	@include('includes.general.head')
+	@include('includes.backPage.head')
 
 </head>
 <body>
@@ -14,6 +15,5 @@
 			<h1 class="panelSuperior panelSuperior col-xs-4 col-md-push-4">Area Administrativa <small class="closeSession"></small></h1>
 
 		</div>
-
 	</header>
 @yield('content')
