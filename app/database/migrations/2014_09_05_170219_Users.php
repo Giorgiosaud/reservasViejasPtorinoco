@@ -13,11 +13,11 @@ class Users extends Migration {
 		//
 		Schema::create('users', function ($table) {
 				$table->increments('id');
+				$table->string('id_nivelDeAcceso');
 				$table->string('nombres');
 				$table->string('apellidos');
 				$table->string('alias')->unique();
 				$table->string('email')->unique();
-				$table->string('nivelDeAcceso');
 				$table->string('password');
 				$table->rememberToken()->nullable();
 				$table->timestamps();

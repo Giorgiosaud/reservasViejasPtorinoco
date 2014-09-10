@@ -21,7 +21,7 @@ class CreatePaseosTable extends Migration {
 				$table->boolean('viernes');
 				$table->boolean('sabado');
 				$table->boolean('domingo');
-				$table->longText('referencias');
+				$table->longText('Descripcion');
 				$table->timestamps();
 				$table->softDeletes();
 			});
