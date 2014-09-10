@@ -12,15 +12,8 @@ class CreateEmbarcacionTable extends Migration {
 	public function up() {
 		Schema::create('embarcaciones', function ($table) {
 				$table->increments('id');
-				$table->text('embarcacion');
+				$table->string('embarcacion');
 				$table->string('orden');
-				$table->boolean('lunes');
-				$table->boolean('martes');
-				$table->boolean('miercoles');
-				$table->boolean('jueves');
-				$table->boolean('viernes');
-				$table->boolean('sabado');
-				$table->boolean('domingo');
 				$table->integer('abordajeMaximo');
 				$table->integer('abordajeNormal');
 			});

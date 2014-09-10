@@ -13,8 +13,8 @@ class TiposDePagos extends Migration {
 		//
 		Schema::create('tiposDePagos', function ($table) {
 				$table->increments('id');
-				$table->string('descripcion');
-				$table->longText('referencias');
+				$table->string('nombre');
+				$table->longText('descripcion');
 				$table->timestamps();
 				$table->softDeletes();
 			});

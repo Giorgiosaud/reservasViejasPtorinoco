@@ -16,7 +16,7 @@ class MercadoPagos extends Migration {
 				$table->string('site_id');
 				$table->string('operation_type');
 				$table->string('order_id');
-				$table->integer('external_reference')->unsigned()->foreign('external_reference')->references('numeroDeReserva')->on('reservas')->onUpdate('cascade');
+				$table->integer('external_reference')->unsigned();
 				$table->string('status');
 				$table->string('status_detail');
 				$table->string('payment_type');

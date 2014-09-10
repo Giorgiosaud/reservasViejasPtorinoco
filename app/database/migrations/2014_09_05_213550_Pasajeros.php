@@ -12,7 +12,7 @@ class Pasajeros extends Migration {
 	public function up() {
 		Schema::create('pasajeros', function ($table) {
 				$table->increments('id');
-				$table->integer('idReservas');
+				$table->integer('reservas_numeroDeReserva')->unsigned();
 				$table->string('nombres');
 				$table->string('apellidos');
 				$table->string('cedula')->nullable();

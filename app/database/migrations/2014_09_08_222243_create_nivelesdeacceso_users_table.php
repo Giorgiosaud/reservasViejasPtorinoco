@@ -12,8 +12,8 @@ class CreateNivelesdeaccesoUsersTable extends Migration {
 	public function up() {
 		Schema::create('nivelesDeAcceso_users', function ($table) {
 				$table->increments('id');
-				$table->integer('user_id');
-				$table->integer('nivelesDeAcceso_id');
+				$table->integer('user_id')->unsigned();
+				$table->integer('nivelesDeAcceso_id')->unsigned();
 
 			});
 	}

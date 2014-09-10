@@ -13,8 +13,7 @@ class CreateNivelesdeaccesoTable extends Migration {
 		Schema::create('nivelesDeAcceso', function ($table) {
 				$table->increments('id');
 				$table->string('nivelDeAcceso');
-				$table->text('nivelDeAcceso');
-				$table->longText('Descripcion de Acceso');
+				$table->longText('descripcion');
 			});
 	}
 

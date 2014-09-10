@@ -8,4 +8,5 @@ class Cliente extends Eloquent {
 		return $this->hasMany('Pago');
 	}
 
+
 }
