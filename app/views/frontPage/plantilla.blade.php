@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class=" dk_fouc">
+<html>
 <head>
-	<title>Reservar</title>
+	<title> @yield('Titulo') </title>
+
 	@include('includes.general.head')
 	@include('includes.frontPage.head')
 <!--[if lt IE 9]>
@@ -38,4 +39,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

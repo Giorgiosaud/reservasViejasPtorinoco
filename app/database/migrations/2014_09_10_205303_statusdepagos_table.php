@@ -13,9 +13,11 @@ class StatusdepagosTable extends Migration {
 	public function up()
 	{
 		Schema::create('statusdepagos',function($table){
-            $table->increments(id);
-            $table->string('nombreDeStatus');
+            $table->increments('id');
+            $table->string('nombre');
             $table->longText('descripcion');
+            $table->timestamps();
+            $table->softDeletes();
        });
 	}
 

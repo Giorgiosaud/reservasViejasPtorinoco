@@ -47,6 +47,8 @@ class MercadoPagos extends Migration {
 				$table->string('collectorphonearea_code');
 				$table->string('collectorphonenumber');
 				$table->string('collectorphoneextension')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
 			});
 	}
 

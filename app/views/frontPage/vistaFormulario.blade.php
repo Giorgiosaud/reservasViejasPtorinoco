@@ -1,5 +1,7 @@
 @extends('frontPage.plantilla')
-
+@section('Titulo')
+	Reservas
+@stop
 @section('formulario')
 	@include('frontPage.formulario')
 @stop

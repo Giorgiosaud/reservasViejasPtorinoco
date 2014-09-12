@@ -14,6 +14,8 @@ class CreateNivelesdeaccesoUsersTable extends Migration {
 				$table->increments('id');
 				$table->integer('user_id')->unsigned();
 				$table->integer('nivelesDeAcceso_id')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
 
 			});
 	}

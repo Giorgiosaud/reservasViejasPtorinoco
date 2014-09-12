@@ -14,8 +14,10 @@ class Fechasdistintas extends Migration {
 				$table->increments('id');
 				$table->date('fecha');
 				$table->mediumText('descripcion');
-				$table->text('clase');
+				$table->string('clase');
 				$table->boolean('activa');
+				$table->timestamps();
+				$table->softDeletes();
 			});
 	}
 

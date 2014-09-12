@@ -14,20 +14,5 @@
 Route::get('/', function () {
 		return View::make('hello');
 	});
-Route::get('/reservar', 'ReservarController@mostrarFormulario');
-Route::get('/login', function () {
-		return View::make('backPage.login');
-
-	});
-Route::get('/initialize', function () {
-
-	});
-// Route::post('/login',function(){
-// 	$datos=Input::all();
-// 	$reglas=[
-// 	'usuario'=>'required',
-// 	'password'=>'required'
-// 	];
-// 	validate::
-
-// });
+Route::resource('/reserva', 'ReservaController');
+Route::resource('/FechaDistinta','FechaDistintaController');

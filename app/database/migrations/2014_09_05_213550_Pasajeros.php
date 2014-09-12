@@ -17,7 +17,8 @@ class Pasajeros extends Migration {
 				$table->string('apellidos');
 				$table->string('cedula')->nullable();
 				$table->string('email')->nullable();
-				$table->timestamps();
+                $table->timestamps();
+                $table->softDeletes();
 
 			});
 	}

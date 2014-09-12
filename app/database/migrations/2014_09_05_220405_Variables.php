@@ -14,6 +14,8 @@ class Variables extends Migration {
 				$table->increments('id');
 				$table->string('variable');
 				$table->string('valor');
+            $table->timestamps();
+            $table->softDeletes();
 			});
 	}
 

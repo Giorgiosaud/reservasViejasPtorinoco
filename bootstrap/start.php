@@ -26,8 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-		'develop' => array('homestead'),
-		'local'   => array('zonapro.net'),
+    'local' => array('*.dev', gethostname()),
+    'production' => array('www.zonapro.net')
 
 	));
 

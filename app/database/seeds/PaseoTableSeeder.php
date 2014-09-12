@@ -7,13 +7,15 @@ class PaseoTableSeeder extends Seeder {
 		$paseo = Paseo::create(array(
 				'horaDeZarpeEscrita' => "10:30 am",
 				'orden'              => "1",
-				'lunes'              => False,
+				'publica'              => True,
+                'lunes'              => False,
 				'martes'             => True,
 				'miercoles'          => True,
 				'jueves'             => True,
 				'viernes'            => True,
 				'sabado'             => True,
 				'domingo'            => True,
+                'descripcion'          =>'Paseo normal'
 			)
 		);
 		$paseo = Paseo::create(array(
@@ -26,6 +28,7 @@ class PaseoTableSeeder extends Seeder {
 				'viernes'            => False,
 				'sabado'             => False,
 				'domingo'            => False,
+                'descripcion'          =>'Paseo normal'
 			)
 		);
 		$paseo = Paseo::create(array(
@@ -38,6 +41,7 @@ class PaseoTableSeeder extends Seeder {
 				'viernes'            => True,
 				'sabado'             => True,
 				'domingo'            => True,
+                'descripcion'          =>'Paseo normal'
 			)
 		);
 		$paseo = Paseo::create(array(
@@ -50,6 +54,7 @@ class PaseoTableSeeder extends Seeder {
 				'viernes'            => True,
 				'sabado'             => True,
 				'domingo'            => True,
+                'descripcion'          =>'Paseo normal'
 			)
 		);
 

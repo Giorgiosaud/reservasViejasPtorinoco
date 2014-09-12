@@ -16,7 +16,7 @@ class Reservas extends Migration {
 				$table->integer('cliente_id')->unsigned();
 				$table->date('fechaDelPaseo');
 				$table->integer('embarcacion_id')->unsigned();
-                $table->integer('paseo_id')->unsigned();
+				$table->integer('paseo_id')->unsigned();
 				$table->integer('statusDelPago')->unsigned();
 				$table->longText('referencias');
 				$table->integer('cuposAdultos')->default('0');

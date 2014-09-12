@@ -14,6 +14,8 @@ class CreateNivelesdeaccesoTable extends Migration {
 				$table->increments('id');
 				$table->string('nivelDeAcceso');
 				$table->longText('descripcion');
+                $table->timestamps();
+                $table->softDeletes();
 			});
 	}
 

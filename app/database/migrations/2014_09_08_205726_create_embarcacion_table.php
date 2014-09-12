@@ -14,8 +14,11 @@ class CreateEmbarcacionTable extends Migration {
 				$table->increments('id');
 				$table->string('embarcacion');
 				$table->string('orden');
+                $table->boolean('publico');
 				$table->integer('abordajeMaximo');
 				$table->integer('abordajeNormal');
+                $table->timestamps();
+                $table->softDeletes();
 			});
 	}
 

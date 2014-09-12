@@ -7,7 +7,7 @@ $(document).ready(function() {
       altField:"#fecha", 
       altFormat:"yy-mm-dd", 
     });
-  console.log(zona.foo);
+
 	// $('.btn').button();
 	// $('.selectpicker').selectpicker();
 	// $("input:checked").each(function(){

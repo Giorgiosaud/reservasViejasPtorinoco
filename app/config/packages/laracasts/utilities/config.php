@@ -11,7 +11,7 @@ return [
 	| you want to prepend the JavaScript variables to.
 	|
 	 */
-	'bind_js_vars_to_this_view' => 'frontPage.vistaFormulario',
+	'bind_js_vars_to_this_view' => 'frontPage/vistaFormulario',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -23,6 +23,6 @@ return [
 	| That way, from your JS, you may do something like `Laracasts.myVar`.
 	|
 	 */
-	'js_namespace' => 'zona'
+	'js_namespace' => 'zp'
 
 ];

@@ -8,7 +8,6 @@ class UserTableSeeder extends Seeder {
 				'apellidos'     => "Princi Pal",
 				'alias'         => "admin",
 				'email'         => "admin@test.com",
-				'nivelDeAcceso' => "root",
 				'password'      => Hash::make('admin')));
 	}
 

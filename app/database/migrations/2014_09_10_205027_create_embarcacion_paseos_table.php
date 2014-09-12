@@ -16,6 +16,8 @@ class CreateEmbarcacionPaseosTable extends Migration {
             $table->increments('id');
             $table->integer('embarcacion_id')->unsigned();
             $table->integer('paseos_id')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
 
         });
     }

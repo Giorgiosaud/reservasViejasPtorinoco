@@ -1,6 +1,6 @@
 <?php
 
-class Embarcation extends Eloquent {
+class Embarcacion extends Eloquent {
 	protected $table = 'embarcaciones';
     public function reservas(){
         return $this->hasMany('Reserva');

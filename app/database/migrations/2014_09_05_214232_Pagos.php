@@ -13,11 +13,14 @@ class Pagos extends Migration {
 		//
 		Schema::create('pagos', function ($table) {
 				$table->increments('id');
-				$table->integer('reservas_numeroDeReserva')->unsigned()	;
+				$table->integer('reservas_numeroDeReserva')->unsigned();
+				$table->date('fecha');
 				$table->integer('tiposDePagos_id')->unsigned();
-                $table->integer('mercadopago_id')->unsigned();
+				$table->integer('mercadopago_id')->unsigned();
 				$table->float('monto');
 				$table->longText('referencias');
+				$table->timestamps();
+				$table->softDeletes();
 
 			});
 	}
