@@ -9,14 +9,20 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run() {
 		Eloquent::unguard();
+		$this->call('UsersTableSeeder');
+		$this->call('AccesslevelsTableSeeder');
+		$this->call('VariablesTableSeeder');
+		$this->call('SpecialdatesTableSeeder');
+		$this->call('ToursTableSeeder');
+		$this->call('BoatsTableSeeder');
+		$this->call('PaymentstatusTableSeeder');
+		$this->call('PaymenttypesTableSeeder');
+		$this->call('ClientsTableSeeder');
+		$this->call('ReservationsTableSeeder');
+		$this->call('PassengersTableSeeder');
+		$this->call('PaymentsTableSeeder');
+		$this->call('ToursBoatRelationTableSeeder');
 
-		$this->call('UserTableSeeder');
-		$this->call('EmbarcacionTableSeeder');
-        $this->call('FechasDistintasTableSeeder');
-        $this->call('NivelesDeAccesoTableSeeder');
-        $this->call('PaseoTableSeeder');
-        $this->call('StatusDePagoTableSeeder');
-        $this->call('VariablesTableSeeder');
 	}
 
 }

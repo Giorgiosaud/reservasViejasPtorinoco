@@ -1,12 +1,7 @@
 // window.DiasMinimosParaReservar=1;
 $(document).ready(function() {
-  $('#fecha2').datepicker({
-    dateFormat:"DD, d 'de' MM 'de', yy",
-      // beforeShowDay: fechasExcepcion,
-      // minDate: minimoDiasAReservar,
-      altField:"#fecha", 
-      altFormat:"yy-mm-dd", 
-    });
+  obtenerVariables();
+  
 
 	// $('.btn').button();
 	// $('.selectpicker').selectpicker();

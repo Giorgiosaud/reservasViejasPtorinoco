@@ -1,7 +1,8 @@
 <?php
 
 class Mercadopago extends Eloquent {
-    public function pago(){
-        return $this->hasOne('Pago');
-    }
+	use SoftDeletingTrait;
+	public function pago() {
+		return $this->belongsTo('Payment');
+	}
 }

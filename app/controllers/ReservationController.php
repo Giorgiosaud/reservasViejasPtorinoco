@@ -1,9 +1,10 @@
 <?php
 
-class ReservaController extends \BaseController {
+class ReservationController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
+	 * GET /reservation
 	 *
 	 * @return Response
 	 */
@@ -15,6 +16,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Show the form for creating a new resource.
+	 * GET /reservation/create
 	 *
 	 * @return Response
 	 */
@@ -24,6 +26,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
+	 * POST /reservation
 	 *
 	 * @return Response
 	 */
@@ -33,6 +36,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
+	 * GET /reservation/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -43,6 +47,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Show the form for editing the specified resource.
+	 * GET /reservation/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -53,6 +58,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
+	 * PUT /reservation/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -63,6 +69,7 @@ class ReservaController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
+	 * DELETE /reservation/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response

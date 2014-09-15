@@ -1,5 +1,5 @@
 <?php
 
-class Variable extends Eloquent {
-
+class Variable extends \Eloquent {
+	protected $fillable = [];
 }

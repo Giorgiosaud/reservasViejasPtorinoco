@@ -4,26 +4,32 @@ class VariablesTableSeeder extends Seeder {
 
 	public function run() {
 		$variable = Variable::create(array(
-				'variable' => "Lunes",
-				'valor'    => True, ));
+				'name'  => "Lunes",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Martes",
-				'valor'    => True, ));
+				'name'  => "Martes",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Miercoles",
-				'valor'    => True, ));
+				'name'  => "Miercoles",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Jueves",
-				'valor'    => True, ));
+				'name'  => "Jueves",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Viernes",
-				'valor'    => True, ));
+				'name'  => "Viernes",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Sabado",
-				'valor'    => True, ));
+				'name'  => "Sabado",
+				'value' => True, ));
 		$variable = Variable::create(array(
-				'variable' => "Domingo",
-				'valor'    => True, ));
+				'name'  => "Domingo",
+				'value' => True, ));
+		$variable = Variable::create(array(
+				'name'  => "minDiasParaReservar",
+				'value' => '1', ));
+		$variable = Variable::create(array(
+				'name'  => "temporadaBaja",
+				'value' => True, ));
 	}
 
 }

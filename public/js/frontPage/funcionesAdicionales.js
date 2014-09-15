@@ -1,106 +1,106 @@
-// function obtenerVariables(){
-//   $.get("php/fechasExcepcion.php", function(datos) {
-//     valores = datos.dates;
-//     diasDeSemana = datos.weekDays;
-//     minimoDiasAReservar = datos.minReservar;
-//     $('#fecha2').datepicker({
-//       dateFormat:"DD, d 'de' MM 'de', yy",
-//       beforeShowDay: fechasExcepcion,
-//       minDate: minimoDiasAReservar,
-//       altField:"#fecha", 
-//       altFormat:"yy-mm-dd", 
-//     });
-//     temporadaBaja = datos.temporadaBaja;
-//     finalVar = [];
-//     fecha = new Date;
-//     for (i = 0;i < valores.length;i++) {
-//       for (j = 0;j < valores[i].length;j++) {
-//         switch(j) {
-//           case 0:
-//           fecha = new Date(valores[i][j]);
-//           finalVar[i] = [];
-//           finalVar[i][j] = new Date(fecha.setDate(fecha.getDate() + 1));
-//           break;
-//           default:
-//           finalVar[i][j] = valores[i][j];
-//           break;
-//         }
-//       }
-//     }
-//     window.Valores = finalVar;
-//     window.weekDays = diasDeSemana;
-//     window.temporadaBaja = parseInt(temporadaBaja);
-//     // alert(datos);
-//   }, "json");
-// }
-// function fechasExcepcion(date) {
-//   var fechas = window.Valores;
-//   var diasActivos = window.weekDays;
-//   var diaDeSemana = date.getDay();
-//   var Mes = date.getMonth();
-//   var Dia = date.getDate();
-//   var Ano = date.getFullYear();
-//   for (i = 0;i < fechas.length;i++) {
-//     fi = fechas[i][0];
-//     if (Dia === fi.getDate() && (Mes === fi.getMonth() && Ano === fi.getFullYear())) {
-//       return[fechas[i][1], fechas[i][2], fechas[i][3]];
-//     }
-//   }
-//   switch(diaDeSemana) {
-//     case 0:
-//     if (diasActivos[0][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[0][1], diasActivos[0][2], diasActivos[0][3]];
-//     }
-//     break;
-//     case 1:
-//     if (diasActivos[1][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[1][1], diasActivos[1][2], diasActivos[1][3]];
-//     }
-//     break;
-//     case 2:
-//     if (diasActivos[2][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[2][1], diasActivos[2][2], diasActivos[2][3]];
-//     }
-//     break;
-//     case 3:
-//     if (diasActivos[3][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[3][1], diasActivos[3][2], diasActivos[3][3]];
-//     }
-//     break;
-//     case 4:
-//     if (diasActivos[4][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[4][1], diasActivos[4][2], diasActivos[4][3]];
-//     }
-//     break;
-//     case 5:
-//     if (diasActivos[5][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[5][1], diasActivos[5][2], diasActivos[5][3]];
-//     }
-//     break;
-//     case 6:
-//     if (diasActivos[6][1]) {
-//       return[true];
-//     } else {
-//       return[diasActivos[6][1], diasActivos[6][2], diasActivos[6][3]];
-//     }
-//     break;
-//     default:
-//     return[true];
-//     break;
-//   }
-// }
+function obtenerVariables(){
+  $.get("FechaDistinta/get", function(datos) {
+    valores = datos.dates;
+    diasDeSemana = datos.weekDays;
+    minimoDiasAReservar = datos.minReservar;
+    $('#fecha2').datepicker({
+      dateFormat:"DD, d 'de' MM 'de', yy",
+      beforeShowDay: fechasExcepcion,
+      minDate: minimoDiasAReservar,
+      altField:"#fecha", 
+      altFormat:"yy-mm-dd", 
+    });
+    temporadaBaja = datos.temporadaBaja;
+    finalVar = [];
+    fecha = new Date;
+    for (i = 0;i < valores.length;i++) {
+      for (j = 0;j < valores[i].length;j++) {
+        switch(j) {
+          case 0:
+          fecha = new Date(valores[i][j]);
+          finalVar[i] = [];
+          finalVar[i][j] = new Date(fecha.setDate(fecha.getDate() + 1));
+          break;
+          default:
+          finalVar[i][j] = valores[i][j];
+          break;
+        }
+      }
+    }
+    window.Valores = finalVar;
+    window.weekDays = diasDeSemana;
+    window.temporadaBaja = parseInt(temporadaBaja);
+    // alert(datos);
+  }, "json");
+}
+function fechasExcepcion(date) {
+  var fechas = window.Valores;
+  var diasActivos = window.weekDays;
+  var diaDeSemana = date.getDay();
+  var Mes = date.getMonth();
+  var Dia = date.getDate();
+  var Ano = date.getFullYear();
+  for (i = 0;i < fechas.length;i++) {
+    fi = fechas[i][0];
+    if (Dia === fi.getDate() && (Mes === fi.getMonth() && Ano === fi.getFullYear())) {
+      return[fechas[i][1], fechas[i][2], fechas[i][3]];
+    }
+  }
+  switch(diaDeSemana) {
+    case 0:
+    if (diasActivos[0][1]) {
+      return[true];
+    } else {
+      return[diasActivos[0][1], diasActivos[0][2], diasActivos[0][3]];
+    }
+    break;
+    case 1:
+    if (diasActivos[1][1]) {
+      return[true];
+    } else {
+      return[diasActivos[1][1], diasActivos[1][2], diasActivos[1][3]];
+    }
+    break;
+    case 2:
+    if (diasActivos[2][1]) {
+      return[true];
+    } else {
+      return[diasActivos[2][1], diasActivos[2][2], diasActivos[2][3]];
+    }
+    break;
+    case 3:
+    if (diasActivos[3][1]) {
+      return[true];
+    } else {
+      return[diasActivos[3][1], diasActivos[3][2], diasActivos[3][3]];
+    }
+    break;
+    case 4:
+    if (diasActivos[4][1]) {
+      return[true];
+    } else {
+      return[diasActivos[4][1], diasActivos[4][2], diasActivos[4][3]];
+    }
+    break;
+    case 5:
+    if (diasActivos[5][1]) {
+      return[true];
+    } else {
+      return[diasActivos[5][1], diasActivos[5][2], diasActivos[5][3]];
+    }
+    break;
+    case 6:
+    if (diasActivos[6][1]) {
+      return[true];
+    } else {
+      return[diasActivos[6][1], diasActivos[6][2], diasActivos[6][3]];
+    }
+    break;
+    default:
+    return[true];
+    break;
+  }
+}
 function actualizarPuestosDisponibles(){
   embarcacion = $("input[name='embarcacionSeleccionada']:checked").val();
   fecha = $("#fecha").val();

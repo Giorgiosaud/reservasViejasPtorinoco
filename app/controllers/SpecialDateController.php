@@ -1,9 +1,10 @@
 <?php
 
-class FechaDistintaController extends \BaseController {
+class SpecialDateController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
+	 * GET /specialdate
 	 *
 	 * @return Response
 	 */
@@ -13,6 +14,7 @@ class FechaDistintaController extends \BaseController {
 
 	/**
 	 * Show the form for creating a new resource.
+	 * GET /specialdate/create
 	 *
 	 * @return Response
 	 */
@@ -22,6 +24,7 @@ class FechaDistintaController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
+	 * POST /specialdate
 	 *
 	 * @return Response
 	 */
@@ -31,6 +34,7 @@ class FechaDistintaController extends \BaseController {
 
 	/**
 	 * Display the specified resource.
+	 * GET /specialdate/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -75,16 +79,15 @@ class FechaDistintaController extends \BaseController {
 		$temporadaBaja  = Variable::where('name', '=', 'temporadaBaja')->first()->value;
 		return Response::json(array('dates' => $respuesta, 'weekDays' => $weekDays, 'temporadaBaja' => $temporadaBaja, 'minReservar' => $minimoReservar));
 		return View::make('obtener/fechasDistintas')->with('fechas', $fechas);
-
 	}
-	public function get($id) {
-		$fechas = FechaDistinta::all();
-		return Response::json(array($fechas));
-		// return View::make('obtener/fechasDistintas')->with('fechas', $fechas);
 
+	public function get() {
+		$fechas = Specialdate::all();
+		return Response::json(array($fechas));
 	}
 	/**
 	 * Show the form for editing the specified resource.
+	 * GET /specialdate/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -95,6 +98,7 @@ class FechaDistintaController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
+	 * PUT /specialdate/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -105,6 +109,7 @@ class FechaDistintaController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
+	 * DELETE /specialdate/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response

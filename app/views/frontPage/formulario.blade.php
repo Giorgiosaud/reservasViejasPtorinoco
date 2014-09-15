@@ -1,7 +1,10 @@
+
 {{ Form::open(array(
 	'id' => 'formularioDeReserva',
 	'role'=>'form',
-	'method'=>'post')
+	'method'=>'post',
+	'class'=>'form-horizontal',
+	'name'=>'formularioDeReserva')
 	) }}
 	<div class="form-group" id="datosDelPaseo">
 		<div class="form-group" id="fechaform">
@@ -22,12 +25,12 @@
 			<div class="control-group">
 				<label class="col-xs-4 control-label" for="opcionesDeEmbarcacion">Tipo De Embarcacion</label>
 				<div id="opcionesDeEmbarcacion" class="btn-group col-xs-8 " data-toggle="buttons">
-					<label class="col-xs-6 btn btn-primary active">
-						<input type="radio" id="embarcacion1" name="embarcacionSeleccionada" value="Catamaran" checked="">Catamaran
+				@foreach ($boats as $boat)
+					<label class="col-xs-6 btn btn-primary disabled">
+						{{ Form::radio('embarcacionSeleccionada', $boat->name, false) }}
+						{{ $boat->name }}
 					</label>
-					<label class="col-xs-6 btn btn-primary">
-						<input type="radio" id="embarcacion2" name="embarcacionSeleccionada" value="Lancha">Lancha
-					</label>
+				@endforeach
 				</div>
 			</div>
 		</div>
@@ -35,15 +38,16 @@
 			<div class="control-group">
 				<label class="col-xs-4 control-label" for="opcionesHora">Hora y Disponibilidad</label>
 				<div id="opcionesHora" data-toggle="buttons" class="col-xs-8 btn-group tienepopover" data-content="Seleccione Hora del Paseo" data-original-title="" title="">
-					<label class="col-xs-4 btn btn-primary">
-						<input type="radio" id="radio1" name="hora" value="1">10:30 am <br><span>cupos:</span>
-					</label>
-					<label class="col-xs-4 btn btn-primary">
-						<input type="radio" id="radio2" name="hora" value="2">2:30 pm <br><span>cupos:</span>
-					</label>
-					<label class="col-xs-4 btn btn-primary">
-						<input type="radio" id="radio3" name="hora" value="3">5:00 pm <br><span>cupos:</span>
-					</label>
+					@foreach ($tours as $tour)
+						<label class="col-xs-4 btn btn-primary disabled">
+							{{ Form::radio('hora',$tour->departure,false) }}
+							{{ $tour->departure}}<br/>
+							{{ $tour->name}}
+							<!-- <input type="radio" id="radio1" name="hora" value="1">10:30 am <br><span>cupos:</span> -->
+						</label>
+
+						{{-- expr --}}
+					@endforeach
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -61,7 +65,7 @@
 		<div class="form-group" id="cedulaForm">
 			<label for="cedula" class="col-xs-4 control-label">Cedula: </label>
 			<div class="col-xs-3">
-				<select class="form-control selectpicker" id="rifInicio" name="rifInicio" style="display: none;">
+				<select class="form-control selectpicker" id="rifInicio" name="rifInicio">
 					<option value="V" selected="selected">V</option>
 					<option value="E">E</option>
 					<option value="J">J</option>
