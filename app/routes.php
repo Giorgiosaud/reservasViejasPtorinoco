@@ -14,5 +14,9 @@
 Route::get('/', function () {
 		return View::make('hello');
 	});
-Route::resource('/reserva', 'ReservaController');
-Route::resource('/FechaDistinta','FechaDistintaController');
+Route::resource('/reserva', 'ReservationController');
+Route::resource('/FechaDistinta', 'FechaDistintaController');
+Route::resource('/SpecialDate', 'SpecialDateController');
+Route::resource('/boat', 'BoatController');
+Route::get('/boat/bydate/{date}', 'BoatController@getByDate');
+Route::post('/client/byidentification/{identification}', 'ClientController@getById');

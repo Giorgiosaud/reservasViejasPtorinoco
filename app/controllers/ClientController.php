@@ -1,44 +1,56 @@
 <?php
 
-class ReservationController extends \BaseController {
+class ClientController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /reservation
+	 * GET /client
 	 *
 	 * @return Response
 	 */
 	public function index() {
-		$Boats = Boat::where('public', '=', '1')->orderBy('order', 'ASC')->get();
-		$Tours = Tour::where('public', '=', '1')->orderBy('order', 'ASC')->get();
-		return View::make('frontPage/vistaFormulario')->with('boats', $Boats)->with('tours', $Tours);
+		//
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /reservation/create
+	 * GET /client/create
 	 *
 	 * @return Response
 	 */
 	public function create() {
-		$input = Input::all();
-		var_dump($input);
+		//
+	}
+	public function getById($identification) {
+		$cliente = Client::where('identification', '=', $identification)->first();
+		if ($cliente):
+		$datosDeCliente = array(
+			'name'           => $cliente->name,
+			'lastName'       => $cliente->lastname,
+			'identification' => $cliente->identification,
+			'email'          => $cliente->email,
+			'phone'          => $cliente->phone
+		);
+
+		var_dump($datosDeCliente);
+		 else :
+		echo "no existe";
+		endif;
 	}
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /reservation
+	 * POST /client
 	 *
 	 * @return Response
 	 */
 	public function store() {
-		$input = Input::all();
-		var_dump($input);
+		//
 	}
 
 	/**
 	 * Display the specified resource.
-	 * GET /reservation/{id}
+	 * GET /client/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -49,7 +61,7 @@ class ReservationController extends \BaseController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /reservation/{id}/edit
+	 * GET /client/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -60,7 +72,7 @@ class ReservationController extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /reservation/{id}
+	 * PUT /client/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -71,7 +83,7 @@ class ReservationController extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /reservation/{id}
+	 * DELETE /client/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response

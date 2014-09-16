@@ -2,7 +2,7 @@
 {{ Form::open(array(
 	'id' => 'formularioDeReserva',
 	'role'=>'form',
-	'method'=>'post',
+	'method'=>'POST',
 	'class'=>'form-horizontal',
 	'name'=>'formularioDeReserva')
 	) }}
@@ -23,11 +23,12 @@
 		</div>
 		<div class="form-group tienepopover" id="tipoEmbarcacion" data-toggle="popover" data-content="Seleccione Embarcacion para el Paseo" data-original-title="" title="">
 			<div class="control-group">
-				<label class="col-xs-4 control-label" for="opcionesDeEmbarcacion">Tipo De Embarcacion</label>
+				{{ Form::label('opcionesDeEmbarcacion', 'Tipo De Embarcacion', array('class' => 'col-xs-4 control-label')); }}
+
 				<div id="opcionesDeEmbarcacion" class="btn-group col-xs-8 " data-toggle="buttons">
 				@foreach ($boats as $boat)
-					<label class="col-xs-6 btn btn-primary disabled">
-						{{ Form::radio('embarcacionSeleccionada', $boat->name, false) }}
+					<label class="boat col-xs-6 btn btn-primary disabled">
+						{{ Form::radio('Boat', $boat->name, false) }}
 						{{ $boat->name }}
 					</label>
 				@endforeach
@@ -40,9 +41,9 @@
 				<div id="opcionesHora" data-toggle="buttons" class="col-xs-8 btn-group tienepopover" data-content="Seleccione Hora del Paseo" data-original-title="" title="">
 					@foreach ($tours as $tour)
 						<label class="col-xs-4 btn btn-primary disabled">
-							{{ Form::radio('hora',$tour->departure,false) }}
+							{{ Form::radio('hora',$tour->id,false) }}
 							{{ $tour->departure}}<br/>
-							{{ $tour->name}}
+							{{ $tour->name}}<br/><span class="cupos"></span>
 							<!-- <input type="radio" id="radio1" name="hora" value="1">10:30 am <br><span>cupos:</span> -->
 						</label>
 
@@ -53,69 +54,138 @@
 			</div>
 		</div>
 		<div id="datosFinalesDePaseo">
-			<input type="hidden" id="datoPrecioAdulto" name="datoprecioAdulto" value="">
-			<input type="hidden" id="datoPrecioAdultoMayor" name="datoprecioAdultoMayor" value="">
-			<input type="hidden" id="datoPrecioNino" name="datoprecioNino" value="">
-			<input type="hidden" id="datoDisponibilidad" name="datoDisponibilidad" value="">
-			<input type="hidden" id="datoCuposEnReserva" name="datoCuposEnReserva" value="0">
+			{{ form::hidden('datoPrecioAdulto') }}
+			{{ form::hidden('datoPrecioAdultoMayor') }}
+			{{ form::hidden('datoPrecioNino') }}
+			{{ form::hidden('datoDisponibilidad') }}
+			{{ form::hidden('datoCuposEnReserva') }}
 		</div>
 	</div>
 
 	<div class="form-group" id="datosPersonales">
 		<div class="form-group" id="cedulaForm">
-			<label for="cedula" class="col-xs-4 control-label">Cedula: </label>
+			{{ Form::label('cedula', 'Cedula: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-3">
-				<select class="form-control selectpicker" id="rifInicio" name="rifInicio">
-					<option value="V" selected="selected">V</option>
-					<option value="E">E</option>
-					<option value="J">J</option>
-					<option value="G">G</option>
-				</select>
+				{{ Form::select('rifInicio',array('V'=>'V','E'=>'E','J'=>'J','G'=>'G'),null,array('class'=>'form-control selectpicker'))}}
 			</div>
 			<div class="col-xs-5">
-				<input type="text" class="form-control tienepopover" title="" placeholder="Numero de Cedula" id="cedula" name="cedula" data-container="body" data-toggle="popover" data-placement="right" data-content="Ingrese solo su número de cedula o rif Válido" data-original-title="Introduzca Su Cedula">
+				{{ Form::text('cedula',Input::old('cedula'),array(
+				'id'=>"cedula",
+				'placeholder'=>'Numero de Cedula',
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'right',
+				'data-content'=>'Ingrese solo su número de cedula o rif Válido',
+				'data-original-title'=>"Introduzca Su Cedula")) }}
 			</div>
 		</div>
 		<div class="form-group" id="nombresForm">
-			<label for="Nombres" class="col-xs-4 control-label">Nombres: </label>
+			{{ Form::label('Nombre', 'Nombres: ', array('class' => 'col-xs-4 control-label')); }}
+
 			<div class="col-xs-8">
-				<input type="text" id="Nombre" class="form-control tienepopover" placeholder="Ingrese Su(s) Nombre(s)" name="Nombre" data-container="body" data-toggle="popover" data-placement="right" data-content="Ingrese Su Nombre" data-original-title="" title="">
+				{{ Form::text('Nombre',Input::old('Nombre'),array(
+				'id'=>"Nombre",
+				'placeholder'=>'Ingrese Su(s) Nombre(s)',
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'right',
+				'data-content'=>'Ingrese Su Nombre',
+				)) }}
+
 			</div>
 		</div>
 		<div class="form-group" id="apellidosForm">
-			<label for="Apellidos" class="col-xs-4 control-label">Apellidos: </label>
+			{{ Form::label('Apellido', 'Apellidos: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-8">
-				<input type="text" id="Apellido" class="form-control tienepopover" placeholder="Ingrese Su(s) Apellido(s)" name="Apellido" data-container="body" data-toggle="popover" data-placement="right" data-content="Ingrese  su Apellido" data-original-title="" title="">
+				{{ Form::text('Apellido',Input::old('Apellido'),array(
+				'id'=>"Apellido",
+				'placeholder'=>'Ingrese Su(s) Apellido(s)',
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'right',
+				'data-content'=>'Ingrese Su Apellido',
+				)) }}
 			</div>
 		</div>
 		<div class="form-group" id="emailForm">
-			<label for="email" class="col-xs-4 control-label">email: </label>
+			{{ Form::label('email', 'Email: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-8">
-				<input type="text" id="email" class="form-control tienepopover" placeholder="Ingrese su correo electronico" name="email" data-container="body" data-toggle="popover" data-placement="right" data-content="Ingrese un correo electronico Válido" data-original-title="" title="">
+				{{ Form::text('email',Input::old('email'),array(
+				'id'=>"email",
+				'placeholder'=>'Ingrese Su correo electronico',
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'right',
+				'data-content'=>'Ingrese un correo electronico Válido',
+				)) }}
+
 			</div>
 		</div>
 		<div class="form-group" id="telefonoForm">
-			<label for="telefono" class="col-xs-4 control-label">telefono: </label>
+			{{ Form::label('telefono', 'Telefono: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-8">
-				<input type="text" id="telefono" class="form-control tienepopover" placeholder="Ingrese un numero telefonico de contacto" name="telefono" data-container="body" data-toggle="popover" data-placement="right" data-content="Ingrese un número de telefono Válido (Solo Numero Ej:02869233147)" data-original-title="" title="">
+				{{ Form::text('telefono',Input::old('telefono'),array(
+				'id'=>"telefono",
+				'placeholder'=>'Ingrese Su correo Telefono',
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'right',
+				'data-content'=>'Ingrese un número de telefono Válido (Solo Numero Ej:02869233147)',
+				)) }}
 			</div>
 		</div>
 	</div>
 	<div class="form-group" id="datosdeCupos">
 		<div class="form-group" id="cupos">
-			<label class="col-xs-4 control-label" for="cuposReservados">Numero de Personas: </label>
+			{{ Form::label('cuposReservados', 'Numero de Personas: ', array('class' => 'col-xs-4 control-label')); }}
 			<div id="cuposReservados" class="col-xs-8">
 				<div class="col-xs-4">
-					<label for="Adultos" class="control-label">Adultos: </label>
-					<input type="number" class="form-control tienpopover" placeholder="0" value="0" min="0" max="50" name="pasajesadultos" id="pasajesadultos" data-toggle="popover" data-placement="right" data-content="Ingrese Almenos un Adulto">
+					{{ Form::label('pasajesadultos', 'Adultos: ', array('class' => 'control-label')); }}
+
+				{{ Form::input('number','pasajesadultos',Input::old('pasajesadultos'),array(
+				'id'=>"pasajesadultos",
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'bottom',
+				'data-content'=>'Ingrese Almenos un Adulto',
+				'value'=>'0',
+				'min'=>'0',
+				'max'=>'50'
+				)) }}
+
 				</div>
 				<div class="col-xs-4">
-					<label for="3eraEdad" class="control-label">Mayores: </label>
-					<input type="number" class="form-control" value="0" placeholder="0" min="0" max="50" name="pasajes3eraEdad" id="pasajes3eraEdad">
+					{{ Form::label('3eraEdad', 'Mayores: ', array('class' => 'control-label')); }}
+
+				{{ Form::input('number','3eraEdad',Input::old('3eraEdad'),array(
+				'id'=>"3eraEdad",
+				'class'=>'form-control tienepopover',
+				'data-container'=>'body',
+				'data-toggle'=>'popover',
+				'data-placement'=>'bottom',
+				'data-content'=>'Ingrese Almenos un Adulto',
+				'value'=>'0',
+				'min'=>'0',
+				'max'=>'50'
+				)) }}
+
 				</div>
 				<div class="col-xs-4">
-					<label for="ninos" class="control-label">Niños: </label>
-					<input type="number" class="form-control" value="0" placeholder="0" min="0" max="50" name="pasajesninos" id="pasajesninos">
+					{{ Form::label('ninos', 'Niños: ', array('class' => 'control-label')); }}
+
+				{{ Form::input('number','ninos',Input::old('ninos'),array(
+				'id'=>"ninos",
+				'class'=>'form-control',
+				'value'=>'0',
+				'min'=>'0',
+				'max'=>'49'
+				)) }}
 				</div>
 			</div>
 		</div>
@@ -143,7 +213,8 @@
 		<div class="control-group">
 			<label for="condiciones" class="col-xs-10 control-label">Acepta los <a class="ifancybox" href="terminosycondiciones.php" data-toggle="modal" data-target="#myModal">Terminos y Condiciones</a> Para el Paseo </label>
 			<div class="col-xs-2">
-				<input type="checkbox" name="condiciones" id="condiciones" class="tienepopover" data-toggle="popover" data-placement="right" data-content="Acepte Los Terminos y Condiciones" data-original-title="" title="">
+				{{ Form::checkbox('condiciones', 'condicionesAceptadas')}}
+
 			</div>
 		</div>
 	</div>

@@ -10,25 +10,21 @@ class MakeVariablesTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('variables', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('name');
-			$table->text('value');
-			$table->timestamps();
-		});
+	public function up() {
+		Schema::create('variables', function (Blueprint $table) {
+				$table->increments('id');
+				$table->string('name');
+				$table->string('value');
+				$table->timestamps();
+			});
 	}
-
 
 	/**
 	 * Reverse the migrations.
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		Schema::drop('variables');
 	}
 

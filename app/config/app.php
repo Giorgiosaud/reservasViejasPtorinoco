@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
+		'Brouwers\Shortcodes\ShortcodesServiceProvider',
 
 	),
 
@@ -190,6 +191,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+		'Shortcode'         => 'Brouwers\Shortcodes\Facades\Shortcode',
 
 	),
 

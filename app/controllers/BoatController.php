@@ -8,9 +8,34 @@ class BoatController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
+	public function index() {
 		//
+	}
+	public function getByDate($date) {
+
+		$paseos        = Tour::where('public', '=', '1')->get();
+		$embarcaciones = Boat::where('public', '=', '1')->get();
+		foreach ($embarcaciones as $embarcacion) {
+			// $datos[$embarcacion->name]           = [];
+			$datos[$embarcacion->name]['maximo'] = $embarcacion->abordajemaximo;
+			$datos[$embarcacion->name]['normal'] = $embarcacion->abordajenormal;
+			foreach ($paseos as $paseo) {
+
+				$reservas = Reservation::where('date', '=', $date)->where('tour_id', '=', $paseo->id)->where('boat_id', '=', $embarcacion->id)->get();
+				if ($reservas->count() > 0):
+				$datos[$embarcacion->name]['ocupados'][$paseo->id] = $reservas->sum('adults')+$reservas->sum('olders')+$reservas->sum('childs');
+
+				 else :
+				$datos[$embarcacion->name]['ocupados'][$paseo->id] = 0;
+				endif;
+				$datos[$embarcacion->name]['disponiblesNormal'][$paseo->id] = $datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id];
+				$datos[$embarcacion->name]['disponiblesMaximo'][$paseo->id] = $datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id];
+			}
+			$datos[$embarcacion->name]['disponiblesNormalDia'] = array_sum($datos[$embarcacion->name]['disponiblesNormal']);
+			$datos[$embarcacion->name]['disponiblesMaximoDia'] = array_sum($datos[$embarcacion->name]['disponiblesMaximo']);
+		}
+		return Response::json(array('cupos' => $datos));
+
 	}
 
 	/**
@@ -19,8 +44,7 @@ class BoatController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 		//
 	}
 
@@ -30,8 +54,7 @@ class BoatController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -42,8 +65,7 @@ class BoatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show($id) {
 		//
 	}
 
@@ -54,8 +76,7 @@ class BoatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		//
 	}
 
@@ -66,8 +87,7 @@ class BoatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		//
 	}
 
@@ -78,8 +98,7 @@ class BoatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		//
 	}
 
