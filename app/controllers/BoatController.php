@@ -28,8 +28,12 @@ class BoatController extends \BaseController {
 				 else :
 				$datos[$embarcacion->name]['ocupados'][$paseo->id] = 0;
 				endif;
-				$datos[$embarcacion->name]['disponiblesNormal'][$paseo->id] = $datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id];
-				$datos[$embarcacion->name]['disponiblesMaximo'][$paseo->id] = $datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id];
+				$precio                                                     = $paseo->prices()->orderBy('id', 'DESC')->first();
+				$datos[$embarcacion->name]['precio'][$paseo->id]['adulto']  = $precio->adult;
+				$datos[$embarcacion->name]['precio'][$paseo->id]['mayor']   = $precio->older;
+				$datos[$embarcacion->name]['precio'][$paseo->id]['nino']    = $precio->child;
+				$datos[$embarcacion->name]['disponiblesNormal'][$paseo->id] = ($datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id]) > 0?$datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id]:0;
+				$datos[$embarcacion->name]['disponiblesMaximo'][$paseo->id] = ($datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id]) > 0?($datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id]):0;
 			}
 			$datos[$embarcacion->name]['disponiblesNormalDia'] = array_sum($datos[$embarcacion->name]['disponiblesNormal']);
 			$datos[$embarcacion->name]['disponiblesMaximoDia'] = array_sum($datos[$embarcacion->name]['disponiblesMaximo']);

@@ -11,9 +11,11 @@ class ClientsTableSeeder extends Seeder {
 			$cliente                 = new Client;
 			$cliente->name           = $faker->firstName;
 			$cliente->lastname       = $faker->lastName;
-			$cliente->identification = $faker->randomElement($array = array('V', 'E', 'J', 'G')).'-'.$faker->unique()->numberBetween(100000, 100000000);
-			$cliente->email          = $faker->unique()->email;
-			$cliente->phone          = $faker->phoneNumber;
+			$identification          = $faker->randomElement($array = array('V', 'E', 'J', 'G')).'-'.$faker->unique()->numberBetween(100000, 100000000);
+			$cliente->identification = $identification;
+			// $cliente->identificationhashed = Hash::make($identification);
+			$cliente->email = $faker->unique()->email;
+			$cliente->phone = $faker->unique()->phoneNumber;
 			$cliente->save();
 		}
 	}

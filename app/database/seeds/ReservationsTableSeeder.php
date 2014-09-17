@@ -11,7 +11,7 @@ class ReservationsTableSeeder extends Seeder {
 		foreach (range(1, 500) as $index) {
 			$Reservation                   = new Reservation;
 			$Reservation->client_id        = $faker->numberBetween(1, 100);
-			$Reservation->date             = $faker->date;
+			$Reservation->date             = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
 			$Reservation->boat_id          = $faker->numberBetween(1, 2);
 			$Reservation->tour_id          = $faker->numberBetween(1, 3);
 			$Reservation->paymentStatus_id = $faker->numberBetween(1, 2);

@@ -8,4 +8,7 @@ class Tour extends \Eloquent {
 	public function boats() {
 		return $this->belongsToMany('Boat');
 	}
+	public function prices() {
+		return $this->belongsToMany('Price');
+	}
 }

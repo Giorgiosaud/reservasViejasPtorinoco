@@ -15,13 +15,6 @@
 	margin-top: 10%;
 	
 }
-#popup_title {
-background: #292c86 url(images/ui-bg_glass_45_292c86_1x400.png) 50% 50% repeat-x;
-color: white;
-}
-#popup_container {
-border: blueviolet 5px ridge;;
-}
 #sinPagoOnline {
 max-width: 340px;
 }

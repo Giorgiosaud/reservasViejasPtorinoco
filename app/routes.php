@@ -19,4 +19,5 @@ Route::resource('/FechaDistinta', 'FechaDistintaController');
 Route::resource('/SpecialDate', 'SpecialDateController');
 Route::resource('/boat', 'BoatController');
 Route::get('/boat/bydate/{date}', 'BoatController@getByDate');
-Route::post('/client/byidentification/{identification}', 'ClientController@getById');
+Route::resource('/client', 'ClientController');
+// Route::post('/client/byidentification', 'ClientController@postById');

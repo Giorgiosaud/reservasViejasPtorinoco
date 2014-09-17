@@ -13,6 +13,7 @@ class ToursTableSeeder extends Seeder {
 		$Tour->public      = true;
 		$Tour->lunes       = false;
 		$Tour->descripcion = 'Paseo que incluye parada en la Playa PicaPica';
+
 		$Tour->save();
 		$Tour              = new Tour;
 		$Tour->departure   = '01:00 pm';
@@ -21,6 +22,7 @@ class ToursTableSeeder extends Seeder {
 		$Tour->public      = false;
 		$Tour->lunes       = false;
 		$Tour->descripcion = 'Paseo Extra cuando esta full';
+
 		$Tour->save();
 		$Tour              = new Tour;
 		$Tour->departure   = '02:30 pm';
@@ -29,6 +31,7 @@ class ToursTableSeeder extends Seeder {
 		$Tour->public      = true;
 		$Tour->lunes       = false;
 		$Tour->descripcion = 'Paseo que incluye parada en la Playa PicaPica';
+
 		$Tour->save();
 		$Tour              = new Tour;
 		$Tour->departure   = '05:00 am';

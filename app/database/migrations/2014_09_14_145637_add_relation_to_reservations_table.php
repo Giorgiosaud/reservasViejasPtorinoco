@@ -18,7 +18,7 @@ class AddRelationToReservationsTable extends Migration {
 				$table->foreign('boat_id')->references('id')->on('boats')->onUpdate('cascade');
 				$table->integer('tour_id')->unsigned();
 				$table->foreign('tour_id')->references('id')->on('tours')->onUpdate('cascade');
-				$table->integer('paymentStatus_id')->unsigned();
+				$table->integer('paymentStatus_id')->unsigned()->default(1);
 				$table->foreign('paymentStatus_id')->references('id')->on('paymentstatus')->onUpdate('cascade');
 			});
 	}

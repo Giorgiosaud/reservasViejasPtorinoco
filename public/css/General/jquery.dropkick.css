@@ -129,7 +129,7 @@
 .dk_toggle {
   display: -moz-inline-stack;
   display: inline-block;
-  *display: inline;
+  display: inline;
   position: relative;
   zoom: 1; }
 

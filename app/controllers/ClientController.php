@@ -21,22 +21,6 @@ class ClientController extends \BaseController {
 	public function create() {
 		//
 	}
-	public function getById($identification) {
-		$cliente = Client::where('identification', '=', $identification)->first();
-		if ($cliente):
-		$datosDeCliente = array(
-			'name'           => $cliente->name,
-			'lastName'       => $cliente->lastname,
-			'identification' => $cliente->identification,
-			'email'          => $cliente->email,
-			'phone'          => $cliente->phone
-		);
-
-		var_dump($datosDeCliente);
-		 else :
-		echo "no existe";
-		endif;
-	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -44,6 +28,7 @@ class ClientController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
 	public function store() {
 		//
 	}
@@ -56,7 +41,20 @@ class ClientController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id) {
-		//
+		$cliente = Client::where('identification', '=', $id)->first();
+		if ($cliente):
+		$datosDeCliente = array(
+			'name'           => $cliente->name,
+			'lastName'       => $cliente->lastname,
+			'identification' => $cliente->identification,
+			'email'          => $cliente->email,
+			'phone'          => $cliente->phone
+		);
+
+		return Response::json(array('datos' => $datosDeCliente));
+		 else :
+		return Response::json(array('datos' => 'noExisten'));
+		endif;
 	}
 
 	/**

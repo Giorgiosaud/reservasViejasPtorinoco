@@ -40,7 +40,7 @@
 				<label class="col-xs-4 control-label" for="opcionesHora">Hora y Disponibilidad</label>
 				<div id="opcionesHora" data-toggle="buttons" class="col-xs-8 btn-group tienepopover" data-content="Seleccione Hora del Paseo" data-original-title="" title="">
 					@foreach ($tours as $tour)
-						<label class="col-xs-4 btn btn-primary disabled">
+						<label class="col-xs-4 btn btn-primary botonhora disabled">
 							{{ Form::radio('hora',$tour->id,false) }}
 							{{ $tour->departure}}<br/>
 							{{ $tour->name}}<br/><span class="cupos"></span>
@@ -53,24 +53,17 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
-		<div id="datosFinalesDePaseo">
-			{{ form::hidden('datoPrecioAdulto') }}
-			{{ form::hidden('datoPrecioAdultoMayor') }}
-			{{ form::hidden('datoPrecioNino') }}
-			{{ form::hidden('datoDisponibilidad') }}
-			{{ form::hidden('datoCuposEnReserva') }}
-		</div>
 	</div>
 
 	<div class="form-group" id="datosPersonales">
 		<div class="form-group" id="cedulaForm">
-			{{ Form::label('cedula', 'Cedula: ', array('class' => 'col-xs-4 control-label')); }}
+			{{ Form::label('identification', 'Cedula: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-3">
 				{{ Form::select('rifInicio',array('V'=>'V','E'=>'E','J'=>'J','G'=>'G'),null,array('class'=>'form-control selectpicker'))}}
 			</div>
 			<div class="col-xs-5">
-				{{ Form::text('cedula',Input::old('cedula'),array(
-				'id'=>"cedula",
+				{{ Form::text('identification',Input::old('identification'),array(
+				'id'=>"identification",
 				'placeholder'=>'Numero de Cedula',
 				'class'=>'form-control tienepopover',
 				'data-container'=>'body',
@@ -81,32 +74,34 @@
 			</div>
 		</div>
 		<div class="form-group" id="nombresForm">
-			{{ Form::label('Nombre', 'Nombres: ', array('class' => 'col-xs-4 control-label')); }}
+			{{ Form::label('name', 'Nombres: ', array('class' => 'col-xs-4 control-label')); }}
 
 			<div class="col-xs-8">
-				{{ Form::text('Nombre',Input::old('Nombre'),array(
-				'id'=>"Nombre",
+				{{ Form::text('name',Input::old('name'),array(
+				'id'=>"name",
 				'placeholder'=>'Ingrese Su(s) Nombre(s)',
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover inputDatosPersonales',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'right',
 				'data-content'=>'Ingrese Su Nombre',
+				'disabled'=>true
 				)) }}
 
 			</div>
 		</div>
 		<div class="form-group" id="apellidosForm">
-			{{ Form::label('Apellido', 'Apellidos: ', array('class' => 'col-xs-4 control-label')); }}
+			{{ Form::label('lastName', 'Apellidos: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-8">
-				{{ Form::text('Apellido',Input::old('Apellido'),array(
-				'id'=>"Apellido",
+				{{ Form::text('lastName',Input::old('Apellido'),array(
+				'id'=>"lastName",
 				'placeholder'=>'Ingrese Su(s) Apellido(s)',
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover inputDatosPersonales',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'right',
 				'data-content'=>'Ingrese Su Apellido',
+				'disabled'=>true
 				)) }}
 			</div>
 		</div>
@@ -116,26 +111,28 @@
 				{{ Form::text('email',Input::old('email'),array(
 				'id'=>"email",
 				'placeholder'=>'Ingrese Su correo electronico',
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover inputDatosPersonales',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'right',
 				'data-content'=>'Ingrese un correo electronico Válido',
+				'disabled'=>true
 				)) }}
 
 			</div>
 		</div>
 		<div class="form-group" id="telefonoForm">
-			{{ Form::label('telefono', 'Telefono: ', array('class' => 'col-xs-4 control-label')); }}
+			{{ Form::label('phone', 'Telefono: ', array('class' => 'col-xs-4 control-label')); }}
 			<div class="col-xs-8">
-				{{ Form::text('telefono',Input::old('telefono'),array(
-				'id'=>"telefono",
+				{{ Form::text('phone',Input::old('telefono'),array(
+				'id'=>"phone",
 				'placeholder'=>'Ingrese Su correo Telefono',
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover inputDatosPersonales',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'right',
 				'data-content'=>'Ingrese un número de telefono Válido (Solo Numero Ej:02869233147)',
+				'disabled'=>true
 				)) }}
 			</div>
 		</div>
@@ -149,7 +146,7 @@
 
 				{{ Form::input('number','pasajesadultos',Input::old('pasajesadultos'),array(
 				'id'=>"pasajesadultos",
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover numeroDeCupos',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'bottom',
@@ -165,7 +162,7 @@
 
 				{{ Form::input('number','3eraEdad',Input::old('3eraEdad'),array(
 				'id'=>"3eraEdad",
-				'class'=>'form-control tienepopover',
+				'class'=>'form-control tienepopover numeroDeCupos',
 				'data-container'=>'body',
 				'data-toggle'=>'popover',
 				'data-placement'=>'bottom',
@@ -181,7 +178,7 @@
 
 				{{ Form::input('number','ninos',Input::old('ninos'),array(
 				'id'=>"ninos",
-				'class'=>'form-control',
+				'class'=>'form-control numeroDeCupos',
 				'value'=>'0',
 				'min'=>'0',
 				'max'=>'49'
@@ -222,17 +219,14 @@
 		<label for="PrecioTotal" class="col-xs-2 control-label text-justify">Saldo a Favor en GiftCards: </label>
 		<div class="col-xs-2">
 			<p class="form-control-static" id="Giftcards">monto</p>
-			<input type="hidden" id="Giftcards2" name="Giftcards2" value="0">
 		</div>
 		<label for="PrecioTotal" class="col-xs-2 control-label">Total Reserva: </label>
 		<div class="col-xs-2">
 			<p class="form-control-static" id="totalReserva">monto</p>
-			<input type="hidden" id="totalReserva2" name="totalReserva2" value="">
 		</div>
 		<label for="PrecioTotal" class="col-xs-2 text-justify control-label">Total a Pagar: </label>
 		<div class="col-xs-2">
 			<p class="form-control-static" id="PrecioTotal">monto</p>
-			<input type="hidden" id="totalbs" name="totalbs" value="">
 		</div>
 	</div>
 	<div class="form-group" id="condicionesEntradaForm">
@@ -254,7 +248,12 @@
 	</div>
 	<div class="form-group" id="botonEnviarForm">
 		<div class="col-xs-12 text-center">
-			<input type="submit" value="Reservar y/o pagar con Tarjeta" id="botonReservar" title="Haga click para Realizar la Reserva" class="btn btn-primary btn-lg center-block">
+		{{Form::Submit('Reservar y/o pagar con Tarjeta',array(
+		'class'=>'btn btn-primary btn-lg center-block',
+		'id'=>'botonReservar',
+		'title'=>'Haga click para Realizar la Reserva'
+		))}}
+
 		</div>
 	</div>
 {{ Form::close() }}

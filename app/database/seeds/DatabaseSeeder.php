@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('VariablesTableSeeder');
 		$this->call('SpecialdatesTableSeeder');
 		$this->call('ToursTableSeeder');
+		$this->call('PricesTableSeeder');
 		$this->call('BoatsTableSeeder');
 		$this->call('PaymentstatusTableSeeder');
 		$this->call('PaymenttypesTableSeeder');
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PassengersTableSeeder');
 		$this->call('PaymentsTableSeeder');
 		$this->call('ToursBoatRelationTableSeeder');
+		$this->call('PriceTourTableSeeder');
 
 	}
 
