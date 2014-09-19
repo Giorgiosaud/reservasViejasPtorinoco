@@ -3,11 +3,11 @@
 	Reservas
 @stop
 @section('body')
-	@include('frontPage.formulario')
+	@include('frontPage.Reserva')
 @stop
 @section('areaInformacion')
-	@include('frontPage.informacion')
+
 @stop
 @section('informacionAbajo')
-	@include('frontpage.informacionAbajo')
+
 @stop

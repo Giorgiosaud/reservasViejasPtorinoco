@@ -11,7 +11,7 @@ class ReservationController extends \BaseController {
 	public function index() {
 		$Boats = Boat::where('public', '=', '1')->orderBy('order', 'ASC')->get();
 		$Tours = Tour::where('public', '=', '1')->orderBy('order', 'ASC')->get();
-		return View::make('frontPage/vistaFormulario')->with('boats', $Boats)->with('tours', $Tours);
+		return View::make('frontPage.vistaFormulario')->with('boats', $Boats)->with('tours', $Tours);
 	}
 
 	/**
@@ -32,10 +32,11 @@ class ReservationController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-		$input       = Input::all();
+		$input = Input::all();
+		var_dump($input);
 		$client      = Input::only('rifInicio', 'identification', 'name', 'lastName', 'email', 'phone');
 		$reservation = Input::only('fecha', 'pasajesadultos', '3eraEdad', 'ninos', 'hora', 'Boat');
-		var_dump($reservation);
+		// var_dump($reservation);
 		//verificar si cliente existe
 		$searchClient = Client::where('identification', '=', $client['rifInicio'].'-'.$client['identification'])->orwhere('email', '=', $client['email'])->orwhere('phone', '=', $client['phone'])->get();
 		if ($searchClient->count() > 0):
@@ -53,13 +54,17 @@ class ReservationController extends \BaseController {
 		$cliente->phone          = $client['phone'];
 		$cliente->save();
 		// verificar si est duplicada la reserva
-		$boat                = Boat::where('name', '=', $reservation['Boat'])->first();
-		$tour                = Tour::where('id', '=', $reservation['hora'])->first();
-		$precio              = $tour->prices()->orderBy('id', 'DESC')->first();
+		$boat = Boat::where('name', '=', $reservation['Boat'])->first();
+		$tour = Tour::where('id', '=', $reservation['hora'])->first();
+
+		$precio              = $tour->getPrices();
 		$montoTotal          = ($reservation['pasajesadultos']*$precio->adult)+($reservation['3eraEdad']*$precio->older)+($reservation['ninos']*$precio->child);
-		$busquedaReservacion = Reservation::where('client_id', '=', $cliente->id)->where('boat_id', '=', $boat->id)->where('tour_id', '='.$tour->id)->get();
+		$busquedaReservacion = Reservation::where('client_id', '=', $cliente->id)->where('date', '=', $reservation['fecha'])->where('boat_id', '=', $boat->id)->where('tour_id', '=', $tour->id)->get();
+
 		if ($busquedaReservacion->count() > 0):
-		echo 'ya existe una reseva asi';
+		// Si la REserva Esta Duplicada
+		// echo 'reserva Duplicada';
+		return View::make('frontPage.vistaReservaDuplicada');
 		 else :
 		$reservacion               = new Reservation;
 		$reservacion->date         = $reservation['fecha'];
@@ -72,10 +77,17 @@ class ReservationController extends \BaseController {
 		$reservacion->boat_id      = $boat->id;
 		$reservacion->tour_id      = $tour->id;
 		$reservacion->save();
-		echo 'Reserva realizada<br/>';
-		var_dump($reservacion);
+		// echo 'reserva realizada';
+		return View::make('frontPage.vistaReserva')->with('reservacion', $reservacion);
+		// echo 'Reserva realizada<br/>';
+		// var_dump($reservacion);
 		endif;
-
+		// echo '<br/>cliente<br/>';
+		// var_dump($cliente);
+		// echo '<br/>Boat<br/>';
+		// var_dump($boat);
+		// echo '<br/>Tour<br/>';
+		// var_dump($tour);
 		// var_dump($boat->name);
 		// $reserva= Reserva::where()
 

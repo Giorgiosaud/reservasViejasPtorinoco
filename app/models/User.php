@@ -23,7 +23,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	public function accesslevels() {
-		return $this->belongsToMany('Accesslevel');
+		return $this->belongsToMany('Accesslevel')->withTimestamps();
 	}
 	protected $hidden = array('password', 'remember_token');
 

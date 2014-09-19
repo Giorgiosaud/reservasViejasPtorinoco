@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",	
 		"laracasts/utilities": "~1.0",
-		"brouwers/shortcodes": "1.*"
+		"brouwers/shortcodes": "1.*",
+		"dinesh/barcode": "dev-master"
 		},
 		"require-dev": {
 			"fzaninotto/faker": "1.3.*@dev",

@@ -124,6 +124,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
 		'Brouwers\Shortcodes\ShortcodesServiceProvider',
+		'Dinesh\Barcode\BarcodeServiceProvider',
 
 	),
 

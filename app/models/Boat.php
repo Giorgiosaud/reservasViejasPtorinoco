@@ -6,6 +6,6 @@ class Boat extends \Eloquent {
 		return $this->hasMany('Reservation');
 	}
 	public function tours() {
-		return $this->belongsToMany('Tour');
+		return $this->belongsToMany('Tour')->withTimestamps();
 	}
 }

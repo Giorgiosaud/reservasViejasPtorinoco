@@ -14,7 +14,7 @@
 	<div class="container" id="contenedor">
 		<legend>Reservas On-Line</legend>
 		<div class="col-xs-8">
-			@yield('formulario')
+			@yield('body')
 		</div>
 		<div class="col-xs-4" id="informacionGeneral">
 			@yield('areaInformacion')

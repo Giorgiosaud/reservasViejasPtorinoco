@@ -1,13 +1,13 @@
 @extends('frontPage.plantillaFormulario')
 @section('Titulo')
-	Reservas
+	Reserva Duplicada
 @stop
 @section('body')
-	@include('frontPage.formulario')
+	@include('frontPage.Duplicada')
 @stop
 @section('areaInformacion')
-	@include('frontPage.informacion')
+
 @stop
 @section('informacionAbajo')
-	@include('frontpage.informacionAbajo')
+
 @stop
