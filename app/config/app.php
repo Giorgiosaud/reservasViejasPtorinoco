@@ -125,6 +125,8 @@ return array(
 		'Laracasts\Utilities\UtilitiesServiceProvider',
 		'Brouwers\Shortcodes\ShortcodesServiceProvider',
 		'Dinesh\Barcode\BarcodeServiceProvider',
+        'Zonapro\Mercadopago\MercadopagoServiceProvider'
+
 
 	),
 
