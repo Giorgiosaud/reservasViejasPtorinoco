@@ -30,6 +30,12 @@ class VariablesTableSeeder extends Seeder {
 		$variable = Variable::create(array(
 				'name'  => "temporadaBaja",
 				'value' => True, ));
+		$variable = Variable::create(array(
+				'name'  => "iva",
+				'value' => "12", ));
+		$variable = Variable::create(array(
+				'name'  => "servicio",
+				'value' => "10", ));
 	}
 
 }

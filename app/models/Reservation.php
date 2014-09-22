@@ -19,6 +19,67 @@ class Reservation extends \Eloquent {
 			return date('d-m-Y', strtotime($tmpdate));
 		}
 	}
+	public function getmontoSinIvaAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		if ($tmpmonto > 0) {
+			$tmpmonto = $tmpmonto/1.12;
+			return number_format($tmpmonto, 2, ',', '.')." Bs.";
+		} else {
+			return 0;
+		}
+	}
+	public function getmontoIvaAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		$iva      = Variable::where('name', '=', 'iva')->first();
+		if ($tmpmonto > 0) {
+			$tmpmonto2 = $tmpmonto/(1+($iva->value/100));
+			$iva       = $tmpmonto-$tmpmonto2;
+			return number_format($iva, 2, ',', '.')." Bs.";
+		} else {
+			return 0;
+		}
+	}
+	public function getmontoTotalAPagarEscritoAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		if ($tmpmonto > 0) {
+			return number_format($tmpmonto, 2, ',', '.')." Bs.";
+		} else {
+			return 0;
+		}
+	}
+	public function getmontoServicioEscritoAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		$servicio = Variable::where('name', '=', 'servicio')->first();
+		if ($tmpmonto > 0) {
+			$tmpmonto2 = $tmpmonto*($servicio->value/100);
+			return number_format($tmpmonto2, 2, ',', '.')." Bs.";
+		} else {
+			return 0;
+		}
+	}
+	public function getmontoConServicioEscritoAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		$servicio = Variable::where('name', '=', 'servicio')->first();
+		if ($tmpmonto > 0) {
+			$tmpmonto2 = $tmpmonto*(1+($servicio->value/100));
+			return number_format($tmpmonto2, 2, ',', '.')." Bs.";
+		} else {
+			return 0;
+		}
+	}
+	public function getmontoConServicioAttribute() {
+		$tmpmonto = $this->attributes['totalAmmount'];
+		$servicio = Variable::where('name', '=', 'servicio')->first();
+		if ($tmpmonto > 0) {
+			$tmpmonto2 = $tmpmonto*(1+($servicio->value/100));
+			return $tmpmonto2;
+		} else {
+			return 0;
+		}
+	}
+	public function getMontoServicio() {
+
+	}
 	public function passenger() {
 		return $this->hasMany('Passenger');
 	}

@@ -2,7 +2,7 @@
 
 class Tour extends \Eloquent {
 	protected $fillable = [];
-	public function reservation() {
+	public function reservations() {
 		return $this->hasMany('Reservation');
 	}
 	public function boats() {

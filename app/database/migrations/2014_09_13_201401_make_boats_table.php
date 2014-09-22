@@ -10,28 +10,25 @@ class MakeBoatsTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('boats', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('order');
-			$table->boolean('public')->default(true);
-			$table->integer('abordajemaximo');
-			$table->integer('abordajenormal');
-			$table->timestamps();
-		});
+	public function up() {
+		Schema::create('boats', function (Blueprint $table) {
+				$table->increments('id');
+				$table->string('name');
+				$table->integer('order');
+				$table->boolean('public')->default(true);
+				$table->integer('abordajeminimo');
+				$table->integer('abordajemaximo');
+				$table->integer('abordajenormal');
+				$table->timestamps();
+			});
 	}
-
 
 	/**
 	 * Reverse the migrations.
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
 		Schema::drop('boats');
 	}
 

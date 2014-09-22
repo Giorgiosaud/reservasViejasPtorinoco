@@ -125,8 +125,8 @@ return array(
 		'Laracasts\Utilities\UtilitiesServiceProvider',
 		'Brouwers\Shortcodes\ShortcodesServiceProvider',
 		'Dinesh\Barcode\BarcodeServiceProvider',
-        'Zonapro\Mercadopago\MercadopagoServiceProvider'
-
+		'SimpleSoftwareIO\QrCode\QrCodeServiceProvider',
+		'Zonapro\Mercadopago\MercadopagoServiceProvider',
 
 	),
 
@@ -195,6 +195,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Shortcode'         => 'Brouwers\Shortcodes\Facades\Shortcode',
+		'Mercadopago'       => 'Zonapro\Mercadopago\Facades\MP',
+		'QrCode'            => 'SimpleSoftwareIO\QrCode\Facades\QrCode',
 
 	),
 

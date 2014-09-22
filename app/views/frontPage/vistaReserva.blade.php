@@ -1,4 +1,4 @@
-@extends('frontPage.plantillaFormulario')
+@extends('frontPage.plantillaReserva')
 @section('Titulo')
 	Reservas
 @stop
