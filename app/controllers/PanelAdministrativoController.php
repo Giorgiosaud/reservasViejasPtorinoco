@@ -10,8 +10,9 @@ class PanelAdministrativoController extends \BaseController {
 	 */
 	public function index() {
 		if (Auth::check()) {
-			return 'Esta logueado';
+			return View::make('backPage.panelAdministrativo.inicio');
 		} else {
+
 			return View::make('backPage.login');
 		}
 	}
@@ -33,11 +34,18 @@ class PanelAdministrativoController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-		$respuesta = Input::only('user', 'password');
+		$respuesta = Input::only('user', 'password', 'recordar');
 		$user      = $respuesta['user'];
 		$password  = $respuesta['password'];
-		if (Auth::attempt(array('alias' => $user, 'password' => $password))) {
-			return Redirect::intended('/administrativePanel');
+		$password  = $respuesta['password'];
+		$recordar  = $respuesta['recordar'];
+		if ($recordar = 'Si') {
+			$recordar = true;
+		} else {
+			$recordar = false;
+		}
+		if (Auth::attempt(array('alias' => $user, 'password' => $password), $recordar)) {
+			return Redirect::intended('/PanelAdministrativo');
 		}
 	}
 

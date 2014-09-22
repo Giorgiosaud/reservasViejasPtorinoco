@@ -32,12 +32,45 @@ class ReservationController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
+		$rules = array(
+			'rifInicio'      => 'required',
+			'identification' => 'required',
+			'name'           => 'required|alpha',
+			'lastName'       => 'required|alpha',
+			'email'          => 'required|email',
+			'phone'          => 'required',
+			'fecha'          => 'required|date_format:Y-m-d',
+			'pasajesadultos' => 'integer',
+			'3eraEdad'       => 'integer',
+			'ninos'          => 'integer',
+			'hora'           => 'required',
+			'Boat'           => 'required',
+			'condiciones'    => 'required',
+		);
+		$messages = array(
+			'required' => 'Este Campo debe ser llenado',
+			'alpha'    => 'Este Campo debe ser llenado solo con letras quizas necesites reescribir este dato',
+			'integer'  => 'Este Campo debe ser llenado solo con numeros',
+			'email'    => 'Este Campo debe ser llenado con un correo valido',
+		);
+		$validator = Validator::make(Input::all(), $rules, $messages);
+		if ($validator->fails()) {
+
+			// get the error messages from the validator
+			$messages = $validator->messages();
+			var_dump($messages);
+
+			// redirect our user back to the form with the errors from the validator
+			return Redirect::to('reserva')->withErrors($validator)->withInput();
+		}
+
 		$input = Input::all();
 		// var_dump($input);
 		$client      = Input::only('rifInicio', 'identification', 'name', 'lastName', 'email', 'phone');
 		$reservation = Input::only('fecha', 'pasajesadultos', '3eraEdad', 'ninos', 'hora', 'Boat');
 		// var_dump($reservation);
 		//verificar si cliente existe
+		//
 		$searchClient = Client::where('identification', '=', $client['rifInicio'].'-'.$client['identification'])->orwhere('email', '=', $client['email'])->orwhere('phone', '=', $client['phone'])->get();
 		if ($searchClient->count() > 0):
 		//si existe lo utilizo

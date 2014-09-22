@@ -7,7 +7,6 @@
 		"laravel/framework": "4.2.*",	
 		"laracasts/utilities": "~1.0",
 		"brouwers/shortcodes": "1.*",
-		"dinesh/barcode": "dev-master",
 		"simplesoftwareio/simple-qrcode": "dev-master"
 		},
 		"require-dev": {

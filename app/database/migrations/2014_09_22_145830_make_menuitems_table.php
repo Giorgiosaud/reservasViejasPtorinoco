@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class MakeUsersTable extends Migration {
+class MakeMenuitemsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,14 +11,13 @@ class MakeUsersTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::create('users', function (Blueprint $table) {
+		Schema::create('menuitems', function (Blueprint $table) {
 				$table->increments('id');
 				$table->string('name');
-				$table->string('lastname');
-				$table->string('alias', 25)->unique();
-				$table->rememberToken();
-				$table->string('email');
-				$table->string('password');
+				$table->integer('level')->default(1);
+				$table->integer('parent_id')->nullable();
+				$table->string('url');
+				$table->text('description');
 				$table->timestamps();
 			});
 	}
@@ -29,7 +28,7 @@ class MakeUsersTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::drop('users');
+		Schema::drop('menuitems');
 	}
 
 }

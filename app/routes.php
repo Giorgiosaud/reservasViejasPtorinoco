@@ -15,6 +15,10 @@ Route::get('/', function () {
 		return View::make('hello');
 	});
 Route::resource('/PanelAdministrativo', 'PanelAdministrativoController');
+Route::get('/logout', function () {
+		Auth::logout();
+		return Redirect::intended('/PanelAdministrativo');
+	});
 Route::resource('/reserva', 'ReservationController');
 Route::resource('/FechaDistinta', 'FechaDistintaController');
 Route::resource('/SpecialDate', 'SpecialDateController');
