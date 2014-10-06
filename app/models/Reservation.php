@@ -19,6 +19,10 @@ class Reservation extends \Eloquent {
 			return date('d-m-Y', strtotime($tmpdate));
 		}
 	}
+	public function getdateOriginalAttribute() {
+		return $tmpdate = $this->attributes['date'];
+
+	}
 	public function getmontoSinIvaAttribute() {
 		$tmpmonto = $this->attributes['totalAmmount'];
 		if ($tmpmonto > 0) {
@@ -77,25 +81,47 @@ class Reservation extends \Eloquent {
 			return 0;
 		}
 	}
-	public function getMontoServicio() {
+	public function getstatusAttribute() {
+		$statustemp  = $this->attributes['paymentStatus_id'];
+		$returnedVal = '';
+		switch ($statustemp):
+		case 1:
+			$returnedVal = 'danger';
+			break;
+		case 2:
+			$returnedVal = 'warning';
+			break;
+		case 3:
+			$returnedVal = 'info';
+			break;
+		case 4:
+			$returnedVal = 'success';
+			break;
+			endswitch;
+			return $returnedVal;
+		}
+		public function getMontoServicio() {
 
+		}
+		public function passenger() {
+			return $this->hasMany('Passenger');
+		}
+		public function payment() {
+			return $this->hasMany('Payment');
+		}
+		public function client() {
+			return $this->belongsTo('Client');
+		}
+		public function paymentstatus() {
+			return $this->belongsTo('Paymentstatus', 'paymentStatus_id');
+		}
+		public function paymenttype() {
+			return $this->belongsTo('Paymenttype');
+		}
+		public function boat() {
+			return $this->belongsTo('Boat');
+		}
+		public function tour() {
+			return $this->belongsTo('Tour');
+		}
 	}
-	public function passenger() {
-		return $this->hasMany('Passenger');
-	}
-	public function payment() {
-		return $this->hasMany('Payment');
-	}
-	public function client() {
-		return $this->belongsTo('Client');
-	}
-	public function paymenttype() {
-		return $this->belongsTo('Paymenttype');
-	}
-	public function boat() {
-		return $this->belongsTo('Boat');
-	}
-	public function tour() {
-		return $this->belongsTo('Tour');
-	}
-}

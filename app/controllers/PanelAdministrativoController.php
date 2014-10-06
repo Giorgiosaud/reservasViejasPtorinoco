@@ -23,9 +23,9 @@ class PanelAdministrativoController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create() {
-		//
-	}
+	//public function create() {
+	//
+	//}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -56,9 +56,9 @@ class PanelAdministrativoController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id) {
-		//
-	}
+	//	public function show($id) {
+	//
+	////	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -67,9 +67,9 @@ class PanelAdministrativoController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id) {
-		//
-	}
+	////public function edit($id) {
+	//
+	////}
 
 	/**
 	 * Update the specified resource in storage.
@@ -78,9 +78,9 @@ class PanelAdministrativoController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id) {
-		//
-	}
+	//	public function update($id) {
+	//
+	//	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -89,8 +89,8 @@ class PanelAdministrativoController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id) {
-		//
-	}
+	//	public function destroy($id) {
+	//
+	//	}
 
 }

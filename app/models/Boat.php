@@ -8,4 +8,12 @@ class Boat extends \Eloquent {
 	public function tours() {
 		return $this->belongsToMany('Tour')->withTimestamps();
 	}
+	public function getpublicAttribute() {
+		$public = $this->attributes['public'];
+		if ($public == 1) {
+			return 'Si';
+		} else {
+			return 'No';
+		}
+	}
 }

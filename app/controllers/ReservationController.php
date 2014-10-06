@@ -8,12 +8,64 @@ class ReservationController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+	public function __construct() {
+		// Exit if not ajax
+		$this->beforeFilter('ajax', array('only' => 'store'));
+		// Exit if not a valid _token
+		$this->beforeFilter('csrf', array('only' => 'store'));
+	}
 	public function index() {
 		$Boats = Boat::where('public', '=', '1')->orderBy('order', 'ASC')->get();
 		$Tours = Tour::where('public', '=', '1')->orderBy('order', 'ASC')->get();
 		return View::make('frontPage.vistaFormulario')->with('boats', $Boats)->with('tours', $Tours);
 	}
+	public function reservaInfo($id) {
+		if (Auth::check()) {
 
+			$reservacion  = Reservation::where('id', '=', $id)->first();
+			$creditoUsado = 0;
+			$cliente      = $reservacion->client()->first();
+			// Mercadopago::sandbox_mode(TRUE);
+
+			$preference_data = array(
+
+				"items" => array(
+					array(
+						"title"       => "Paseo en Catamaran",
+						"quantity"    => 1,
+						"currency_id" => "VEF",
+						"unit_price"  => $reservacion->montoConServicio,
+						"description" => "Paquete completo reservado en Catamaran",
+					)
+				),
+				"payer" => array(
+					array(
+						"name"    => $cliente->name,
+						"surname" => $cliente->lastname,
+						"email"   => $cliente->email
+					)
+				),
+				"back_urls" => array(
+					"success"  => "http://www.puertorinoco.com/reservas/mercadopago/notificaciones/sucess.php?idreserva=".$reservacion->id,
+					"failure"  => "http://www.puertorinoco.com/reservas/mercadopago/notificaciones/failure.php?idreserva=".$reservacion->id,
+					"pending"  => "http://www.puertorinoco.com/reservas/mercadopago/notificaciones/pending.php?idreserva=".$reservacion->id
+				),
+				"payment_methods"           => array(
+					"excluded_payment_methods" => array(),
+					"excluded_payment_types"   => array(
+						array("id"                => "ticket"),
+						array("id"                => "atm")
+					)
+				),
+				"external_reference" => $reservacion->id
+			);
+			$preference = Mercadopago::create_preference($preference_data);
+			$linkmp     = $preference['response']['init_point'];
+			return View::make('frontPage.vistaReserva')->with('reservacion', $reservacion)->with('linkmp', $linkmp)->with('creditoUsado', $creditoUsado);} else {
+			return 'logueate';
+		}
+
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /reservation/create
@@ -126,7 +178,7 @@ class ReservationController extends \BaseController {
 		$reservacion->save();
 		if ($reservacion->totalAmmount > 0):
 		// $accessToken = Mercadopago::get_access_token();
-		Mercadopago::sandbox_mode(TRUE);
+		// Mercadopago::sandbox_mode(TRUE);
 
 		$preference_data = array(
 
@@ -161,7 +213,7 @@ class ReservationController extends \BaseController {
 			"external_reference" => $reservacion->id
 		);
 		$preference = Mercadopago::create_preference($preference_data);
-		$linkmp     = $preference['response']['init_point'];
+		$linkmp     = $preference['response'][Mercadopago::text_mp_sandbox_mode()];
 		endif;
 		return View::make('frontPage.vistaReserva')->with('reservacion', $reservacion)->with('linkmp', $linkmp)->with('creditoUsado', $creditoUsado);
 		// echo 'Reserva realizada<br/>';

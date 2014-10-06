@@ -28,10 +28,7 @@ footer{
 .closeSession{
   float: right;
 }
-#hora,option{
-  height: 2em;
 
-}
 .Boton{
   color: #0f4ed8;
 }
@@ -82,6 +79,9 @@ form{
 #dk_container_tipoDeEmbarcacion{
   padding: 0;
 }
+div#ui-datepicker-div{
+  z-index: 1500 !important;
+}
 .icono{
   height: 20px;
   background: url('../imagenes/check-x.png');
@@ -96,4 +96,7 @@ form{
 }
 .rechazarPago,.quitarPasajero,.borrarPasajero,.borrarPago,.rechazarPasajero{
   background-position: -25px;
+}
+.individual .input-group{
+  margin-bottom: 10px;
 }

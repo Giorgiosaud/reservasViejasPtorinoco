@@ -1,4 +1,3 @@
-
 {{ Form::open(array(
 	'id' => 'formularioDeReserva',
 	'role'=>'form',
@@ -24,11 +23,12 @@
 				      @if ($errors->has('fecha')) <p class="help-block">{{ $errors->first('fecha') }}</p> @endif
 				      <div class="form-group tienepopover" id="tipoEmbarcacion" data-toggle="popover" data-content="Seleccione Embarcacion para el Paseo" data-original-title="" title="">
 				      	<div class="control-group">
-				      		{{ Form::label('opcionesDeEmbarcacion', 'Tipo De Embarcacion', array('class' => 'col-xs-4 control-label')); }}
+<?php $width = floor(12/$boats->count())?>
+{{ Form::label('opcionesDeEmbarcacion', 'Tipo De Embarcacion', array('class' => 'col-xs-4 control-label')); }}
 
 				      		<div id="opcionesDeEmbarcacion" class="btn-group col-xs-8 " data-toggle="buttons">
 				      			@foreach ($boats as $boat)
-				      			<label class="boat col-xs-6 btn btn-primary disabled">
+				      			<label class="boat col-xs-{{ $width }} btn btn-primary disabled">
 				      				{{ Form::radio('Boat', $boat->name, false) }}
 				      				{{ $boat->name }}
 				      			</label>
@@ -40,9 +40,10 @@
 				      <div class="form-group" id="horaform">
 				      	<div class="control-group">
 				      		<label class="col-xs-4 control-label" for="opcionesHora">Hora y Disponibilidad</label>
+<?php $width = floor(12/$tours->count())?>
 				      		<div id="opcionesHora" data-toggle="buttons" class="col-xs-8 btn-group tienepopover" data-content="Seleccione Hora del Paseo" data-original-title="" title="">
 				      			@foreach ($tours as $tour)
-				      			<label class="col-xs-4 btn btn-primary botonhora disabled">
+				      			<label class="col-xs-{{ $width }} btn btn-primary botonhora disabled">
 				      				{{ Form::radio('hora',$tour->id,false) }}
 				      				{{ $tour->departure}}<br/>
 				      				{{ $tour->name}}<br/><span class="cupos"></span>

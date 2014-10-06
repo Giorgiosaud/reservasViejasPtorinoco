@@ -26,55 +26,18 @@
 				<ul class="dropdown-menu">
 				@endif
 				@foreach ($childrenItems as $childrenItem)
-				<li id="botonPreciosActuales"><a href="#" >{{ $childrenItem->name }}</a></li>
+				<li id="{{ $childrenItem->name }}"><a href="{{ $childrenItem->url }}" >{{ $childrenItem->name }}</a></li>
 				@endforeach
 				</ul></li>
 				@endforeach
 				</ul>
-				</div>
-
-
-				<li class="dropdown">
-					<a  class="dropdown-toggle" data-toggle="dropdown">Precios<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li id="botonPreciosActuales"><a href="php/consultar_precios.php" >Precios Actuales</a></li>
-						<li id="botonCambiarPrecios"><a href="php/cambiar_precios.php" data-script="js/cambiarprecios.js">Cambiar Precios</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reservaciones<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li id="botonPorFecha"><a href='php/consulta_de_reserva.php' data-script="js/consultaReserva.js">Consultar Reserva(s)</a></li>
-						<li id="botonPorultimosdiasnopago"><a href='php/funciones/consulta_ultimas_48.php'>Reserva con mas de 48 horas sin pago</a></li>
-						<li><a href="php/reservarInterno.php"><div id="botonVariables">Reserva Interna</div></a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Abordaje<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li id="botonAbordaje"><a href='php/abordaje.php' data-script="js/abordajeForm.js">Abordaje de Zarpe</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ajuste de Fechas<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li id="botonDiasdeSemana"><a href="php/funciones/diasLaborablesDeLaSemana.php">Dias Laborables de la semana</a></li>
-						<li id="botonConsultaDiasEspeciales"><a href="php/funciones/diasEspeciales.php">Consulta/Modificacion de Dias Especiales</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar Usuarios<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li id="botonNuevoUsuario"><a href="php/crearNuevoUsuario.php">Nuevo Usuario</a></li>
-						<li><a href="#">Cambiar Existente</a></li>
-					</ul>
-				</li>
-				<li><a href="php/cambiarVariables.php"><div id="botonVariables">Cambiar Variables</div></a></li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right">
 				<li><a href="logout">Cerrar sesi&oacute;n</a></li>
 			</ul>
+				</div>
+			</ul>
+
+
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PaymentsTableSeeder');
 		$this->call('ToursBoatRelationTableSeeder');
 		$this->call('PriceTourTableSeeder');
+		$this->call('MenuItemsTableSeeder');
 
 	}
 

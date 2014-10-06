@@ -9,7 +9,11 @@ class BoatController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		//
+		if (Auth::check()) {
+			$boats = Boat::all();
+			// echo 'hola';
+			return View::make('backPage.panelAdministrativo.Boat.show')->with('boats', $boats);
+		}
 	}
 	public function getByDate($date) {
 
