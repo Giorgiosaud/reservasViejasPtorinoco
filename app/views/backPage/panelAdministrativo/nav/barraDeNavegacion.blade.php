@@ -26,7 +26,7 @@
 				<ul class="dropdown-menu">
 				@endif
 				@foreach ($childrenItems as $childrenItem)
-				<li id="{{ $childrenItem->name }}"><a href="{{ $childrenItem->url }}" >{{ $childrenItem->name }}</a></li>
+				<li id="{{ $childrenItem->name }}"><a href="{{ URL::to('/PanelAdministrativo') }}/{{ $childrenItem->url }}" >{{ $childrenItem->name }}</a></li>
 				@endforeach
 				</ul></li>
 				@endforeach

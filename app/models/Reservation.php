@@ -21,7 +21,6 @@ class Reservation extends \Eloquent {
 	}
 	public function getdateOriginalAttribute() {
 		return $tmpdate = $this->attributes['date'];
-
 	}
 	public function getmontoSinIvaAttribute() {
 		$tmpmonto = $this->attributes['totalAmmount'];

@@ -3,6 +3,9 @@
 {{ Form::hidden('tipoDeEmbarcacion',$Reservacion->boat->id) }}
 {{ Form::hidden('ModificadoPor',Auth::user()->name) }}
 {{ Form::hidden('tipoDeEmbarcacion',$Reservacion->boat->id) }}
+<script type="text/javascript">
+
+</script>
 <div class="panel panel-info">
 	<div class="panel-body">
 		<div class="panel panel-info tipoDeEmbarcacion">
@@ -87,7 +90,7 @@ foreach ($tours as $tour) {
 					<label for="disponibilidad">Maximo Disponibles para esta Fecha y Hora</label>
 				</h4>
 				<div class="col-xs-12 text-center" id="disponibilidad">
-					Pasajeros disponibles.
+					{{ $datos[$Reservacion->boat->name] ['disponiblesMaximo'][$Reservacion->tour_id]}} Pasajeros disponibles.
 				</div>
 			</div>
 		</div>
@@ -119,11 +122,11 @@ foreach ($tours as $tour) {
 
 					{{  Form::input('number', 'cuposNinos', $Reservacion->childs,array('class'=>'phone form-control')) }}
 				</div>
-				<label class="status btn btn-primary disabled">
+				<label class="status btn btn-primary">
 					{{ Form::radio('Status', 'Activa') }}
 					Activa
 				</label>
-				<label class="status btn btn-primary disabled">
+				<label class="status btn btn-primary">
 					{{ Form::radio('Status', 'Inactiva') }}
 					Inactiva
 				</label>

@@ -77,7 +77,33 @@ class ReservationAdminController extends \BaseController {
 		}
 		$reservacion = Reservation::where('id', '=', $numeroDeReserva)->first();
 
-		return View::make('backPage.panelAdministrativo.Reservations.individual')->with('Reservacion', $reservacion);
+		$paseos        = Tour::all();
+		$embarcaciones = Boat::all();
+		foreach ($embarcaciones as $embarcacion) {
+			// $datos[$embarcacion->name]           = [];
+			$datos[$embarcacion->name]['maximo'] = $embarcacion->abordajemaximo;
+			$datos[$embarcacion->name]['normal'] = $embarcacion->abordajenormal;
+			foreach ($paseos as $paseo) {
+
+				$reservas      = Reservation::where('date', '=', $reservacion->dateOriginal)->where('boat_id', '=', $reservacion->boat_id)->where('tour_id', '=', $reservacion->tour_id)->get();
+				$datos['test'] = $reservas->count();
+				if ($reservas):
+				$datos[$embarcacion->name]['ocupados'][$paseo->id] = $reservas->sum('adults')+$reservas->sum('olders')+$reservas->sum('childs');
+				 else :
+				$datos[$embarcacion->name]['ocupados'][$paseo->id] = 0;
+				endif;
+				$precio                                                     = $paseo->prices()->orderBy('id', 'DESC')->first();
+				$datos[$embarcacion->name]['precio'][$paseo->id]['adulto']  = $precio->adult;
+				$datos[$embarcacion->name]['precio'][$paseo->id]['mayor']   = $precio->older;
+				$datos[$embarcacion->name]['precio'][$paseo->id]['nino']    = $precio->child;
+				$datos[$embarcacion->name]['disponiblesNormal'][$paseo->id] = ($datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id]) > 0?$datos[$embarcacion->name]['normal']-$datos[$embarcacion->name]['ocupados'][$paseo->id]:0;
+				$datos[$embarcacion->name]['disponiblesMaximo'][$paseo->id] = ($datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id]) > 0?($datos[$embarcacion->name]['maximo']-$datos[$embarcacion->name]['ocupados'][$paseo->id]):0;
+			}
+			$datos[$embarcacion->name]['disponiblesNormalDia'] = array_sum($datos[$embarcacion->name]['disponiblesNormal']);
+			$datos[$embarcacion->name]['disponiblesMaximoDia'] = array_sum($datos[$embarcacion->name]['disponiblesMaximo']);
+		}
+
+		return View::make('backPage.panelAdministrativo.Reservations.individual')->with('Reservacion', $reservacion)->with('datos', $datos);
 		echo '<pre>';
 		var_dump($reservacion);
 		echo '</pre>';

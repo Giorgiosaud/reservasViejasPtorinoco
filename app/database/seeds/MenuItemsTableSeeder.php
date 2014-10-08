@@ -16,21 +16,21 @@ class MenuItemsTableSeeder extends Seeder {
 		$menuItem2->name        = "Embarcaciones";
 		$menuItem2->level       = '2';
 		$menuItem2->parent_id   = $menuItem->id;
-		$menuItem2->url         = 'PanelAdministrativo/boats';
+		$menuItem2->url         = 'boats';
 		$menuItem2->description = 'Configuracion de Paseos y precios';
 		$menuItem2->save();
 		$menuItem2              = new Menuitem;
 		$menuItem2->name        = "Tours";
 		$menuItem2->level       = '2';
 		$menuItem2->parent_id   = $menuItem->id;
-		$menuItem2->url         = 'PanelAdministrativo/tours';
+		$menuItem2->url         = 'tours';
 		$menuItem2->description = 'Configuracion de Paseos y precios';
 		$menuItem2->save();
 		$menuItem2              = new Menuitem;
 		$menuItem2->name        = "Precios";
 		$menuItem2->level       = '2';
 		$menuItem2->parent_id   = $menuItem->id;
-		$menuItem2->url         = 'PanelAdministrativo/prices';
+		$menuItem2->url         = 'prices';
 		$menuItem2->description = 'Configuracion de Paseos y precios';
 		$menuItem2->save();
 		$menuItem              = new Menuitem;
@@ -44,7 +44,7 @@ class MenuItemsTableSeeder extends Seeder {
 		$menuItem2->name        = "Consultas";
 		$menuItem2->level       = '2';
 		$menuItem2->parent_id   = $menuItem->id;
-		$menuItem2->url         = 'PanelAdministrativo/reservas';
+		$menuItem2->url         = 'reservas';
 		$menuItem2->description = 'Configuracion de Paseos y precios';
 		$menuItem2->save();
 

@@ -29,18 +29,13 @@
 				<div class="panel-body">
 					<ol>
 						<li>
-							Adultos: de 12 a 60 a&ntilde;os, Bs.
+							Adultos: de 12 a 60 años, Bs.
 						</li>
 						<li>
-							Ni&ntilde;
-							os: de 6 A 11 a&ntilde;
-							os y mayores de 60 a&ntilde;
-							os, Bs.
+							Niños: de 6 A 11 años y mayores de 60 años, Bs.
 						</li>
 						<li>
-							Ni&ntilde;
-							os: de 1 A 5 a&ntilde;
-							os  (1 por grupo de 5 personas) Gratis.
+							Niños: de 1 A 5 años  (1 por grupo de 5 personas) Gratis.
 						</li>
 					</ol>
 				</div>
@@ -58,18 +53,13 @@
 				<div class="panel-body">
 					<ol>
 						<li>
-							Adultos: de 12 a 60 a&ntilde;os, Bs.
+							Adultos: de 12 a 60 años, Bs.
 						</li>
 						<li>
-							Ni&ntilde;
-							os: de 6 A 11 a&ntilde;
-							os y mayores de 60 a&ntilde;
-							os, Bs.
+							Niños: de 6 A 11 años y mayores de 60 años, Bs.
 						</li>
 						<li>
-							Ni&ntilde;
-							os: de 1 A 5 a&ntilde;
-							os  (1 por grupo de 5 personas) Gratis.
+							Niños: de 1 A 5 años  (1 por grupo de 5 personas) Gratis.
 						</li>
 					</ol>
 				</div>

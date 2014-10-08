@@ -14,14 +14,22 @@ Reservations
 <div class="table-responsive">
 	<table class="table table-bordered table-hover table-condensed">
 		@foreach ($Reservaciones as $Reservacion)
+
 		@if (!isset($boat)||$Reservacion->boat->name!=$boat)
 
 		<tr>
-			<th colspan="13" id="{{ $Reservacion->boat->name }}" class="text-center">{{ $Reservacion->boat->name }}</th>
+			<th colspan="13" id="{{ $Reservacion->boat->name }}" class="info text-center">{{ $Reservacion->boat->name }}</th>
 <?php
 $boat = $Reservacion->boat->name;
 ?>
 </tr>
+		@endif
+		@if (!isset($departure)||$Reservacion->tour->departure!=$departure)
+<?php $departure = $Reservacion->tour->departure?>
+		<tr>
+			<th colspan="13" class="info text-center">{{ $departure }}</th>
+		</tr>
+
 		<tr>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Numero de Reserva</th>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Nombre</th>
@@ -38,12 +46,6 @@ $boat = $Reservacion->boat->name;
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Referencias</th>
 		</tr>
 		{{-- expr --}}
-		@endif
-		@if (!isset($departure)||$Reservacion->tour->departure!=$departure)
-<?php $departure = $Reservacion->tour->departure?>
-		<tr>
-			<th colspan="13" class="text-center">{{ $departure }}</th>
-		</tr>
 		@endif
 		<tr id="{{ $Reservacion->id }}" class="{{ $Reservacion->status }}">
 			<td class="numeroDeReserva">{{ $Reservacion->id }}</td>
