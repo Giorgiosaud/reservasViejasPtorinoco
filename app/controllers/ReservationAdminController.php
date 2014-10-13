@@ -12,7 +12,7 @@ class ReservationAdminController extends \BaseController {
 		// Exit if not ajax
 		$this->beforeFilter('ajax', array('only' => 'store'));
 		// Exit if not a valid _token
-		$this->beforeFilter('csrf', array('only' => 'store'));
+		$this->beforeFilter('csrf', array('only' => array('store', 'update')));
 	}
 	public function index() {
 		return View::make('backPage.panelAdministrativo.Reservations.form');
@@ -58,9 +58,6 @@ class ReservationAdminController extends \BaseController {
 		}
 		$Reservaciones = $Reservaciones->with('client', 'paymentstatus', 'boat')->orderBy('boat_id', 'ASC')->orderBy('tour_id', 'ASC')->orderBy('paymentStatus_id', 'DESC')->get();
 		return View::make('backPage.panelAdministrativo.Reservations.list')->with('Reservaciones', $Reservaciones)->with('valores', $inputs);
-		echo '<pre>';
-		var_dump($reservacion);
-		echo '</pre>';
 	}
 
 	/**
@@ -75,7 +72,7 @@ class ReservationAdminController extends \BaseController {
 			$inputs          = Input::all();
 			$numeroDeReserva = $inputs['numeroDeReserva'];
 		}
-		$reservacion = Reservation::where('id', '=', $numeroDeReserva)->first();
+		$reservacion = Reservation::withTrashed()->where('id', '=', $numeroDeReserva)->first();
 
 		$paseos        = Tour::all();
 		$embarcaciones = Boat::all();
@@ -85,7 +82,7 @@ class ReservationAdminController extends \BaseController {
 			$datos[$embarcacion->name]['normal'] = $embarcacion->abordajenormal;
 			foreach ($paseos as $paseo) {
 
-				$reservas      = Reservation::where('date', '=', $reservacion->dateOriginal)->where('boat_id', '=', $reservacion->boat_id)->where('tour_id', '=', $reservacion->tour_id)->get();
+				$reservas      = Reservation::where('date', '=', $reservacion->dateOriginal)->where('tour_id', '=', $paseo->id)->where('boat_id', '=', $embarcacion->id)->get();
 				$datos['test'] = $reservas->count();
 				if ($reservas):
 				$datos[$embarcacion->name]['ocupados'][$paseo->id] = $reservas->sum('adults')+$reservas->sum('olders')+$reservas->sum('childs');
@@ -102,8 +99,9 @@ class ReservationAdminController extends \BaseController {
 			$datos[$embarcacion->name]['disponiblesNormalDia'] = array_sum($datos[$embarcacion->name]['disponiblesNormal']);
 			$datos[$embarcacion->name]['disponiblesMaximoDia'] = array_sum($datos[$embarcacion->name]['disponiblesMaximo']);
 		}
-
-		return View::make('backPage.panelAdministrativo.Reservations.individual')->with('Reservacion', $reservacion)->with('datos', $datos);
+		$Boats = Boat::orderBy('order', 'ASC')->get();
+		$Tours = Tour::orderBy('order', 'ASC')->get();
+		return View::make('backPage.panelAdministrativo.Reservations.individual')->with('Reservacion', $reservacion)->with('datos', $datos)->with('boats', $Boats)->with('tours', $Tours);
 		echo '<pre>';
 		var_dump($reservacion);
 		echo '</pre>';
@@ -129,7 +127,18 @@ class ReservationAdminController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id) {
-		//
+		$inputs                  = Input::all();
+		$Reserva                 = Reservation::find($id);
+		$cliente                 = Client::find($Reserva->client_id);
+		$cliente->name           = $inputs['name'];
+		$cliente->lastname       = $inputs['lastname'];
+		$cliente->identification = $inputs['identification'];
+		$cliente->email          = $inputs['email'];
+		$cliente->phone          = $inputs['phone'];
+		$cliente->save();
+		echo '<pre>';
+		var_dump(Input::all());
+		echo '</pre>';
 	}
 
 	/**

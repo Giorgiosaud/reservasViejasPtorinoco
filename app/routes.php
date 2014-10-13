@@ -14,7 +14,9 @@
 Route::get('/', function () {
 		return View::make('hello');
 	});
-
+Route::get('/login', function () {
+		return Redirect::to('/PanelAdministrativo');
+	});
 Route::resource('/reserva', 'ReservationController');
 Route::resource('/FechaDistinta', 'FechaDistintaController');
 Route::resource('/SpecialDate', 'SpecialDateController');
@@ -27,8 +29,11 @@ Route::group(array('prefix'                                          => 'PanelAd
 				Route::resource('/boats', 'BoatController');
 				Route::resource('/tours', 'TourController');
 				Route::resource('/prices', 'PriceController');
+				Route::resource('/reservas/pagos', 'PaymentAdminController');
+				Route::resource('/reservas/pasajeros', 'PasajerosAdminController');
 				Route::get('/reservas/informacion/{id}', 'ReservationController@reservaInfo');
 				Route::resource('/reservas', 'ReservationAdminController');
+
 				Route::get('/logout', function () {
 						Auth::logout();
 						return Redirect::intended('/PanelAdministrativo');

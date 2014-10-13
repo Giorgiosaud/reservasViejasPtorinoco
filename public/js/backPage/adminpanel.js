@@ -8,56 +8,105 @@ $( document ).ajaxComplete(function() {
   if($('#fecha').val()!=""){
     date= new Date($('#fecha').val());
     date.setDate(date.getDate()+1);
-    console.log($('#fecha').val());
     $("#fecha2").datepicker('setDate', date);
   }
+  $('#fechaPago2').datepicker({
+    dateFormat:"DD, d 'de' MM 'de', yy",
+    altField:"#fechaPago", 
+    altFormat:"yy-mm-dd",
+  });
 });
 $(document).ready(function() {
-  // $('.dropdown-menu a').click(function(e){
-  //   e.preventDefault();
-  //   $this=$(this);
-  //   href=$this.attr('href');
-  //   script=$this.data("script");
-  //   actualPage=$(location).attr('href');
-  //   $('#PaneldeRespuesta').slideUp('slow',function(){
-  //     $('.jumbotron').load(href +' #respuesta',function(){
-  //       $('#PaneldeRespuesta').slideDown('slow',function(){
-  //         $.getScript(script,function(){
-  //           console.log(script);
-  //         });
-  //       });
-  //     });
-  //   });
-  // });
   $('body').on('mouseover', '#fecha2', function(event) {
     event.preventDefault();
     $('#fecha2').datepicker({
-    dateFormat:"DD, d 'de' MM 'de', yy",
-    altField:"#fecha", 
-    altFormat:"yy-mm-dd",
+      dateFormat:"DD, d 'de' MM 'de', yy",
+      altField:"#fecha", 
+      altFormat:"yy-mm-dd",
+    });
   });
-    
+  $('#fechaPago2').datepicker({
+    dateFormat:"DD, d 'de' MM 'de', yy",
+    altField:"#fechaPago", 
+    altFormat:"yy-mm-dd",
   });
   $('body').on('click', '.numeroDeReserva', function(event) {
     event.preventDefault();
-    console.log($(this).html());
     $this=$(this);
     numeroDeReserva=parseInt($this.html());
     $.ajax({
       type:"GET",
       url: "reservas/"+numeroDeReserva,
       success: function(data){
+        $('.modal-body').html($('#respuesta',data));
+        $('#myModal').modal();
+        $('#myModalLabel').html('Reservacion numero '+numeroDeReserva);
+      },
+      dataType:"html"
+    });
+  });
+  
+  $('body').on('click', '.guardarCambiosEnReserva', function(event) {
+    event.preventDefault();
+    $this=$(this);
+    numeroDeReserva=$("input[name='numeroDeReserva']").val();
+    $.ajax({
+      type:"PUT",
+      data:$('#formularioIndividual').serialize(),
+      url: numeroDeReserva,
+      success: function(data){
         $('.modal-body').html(data);
         $('#myModal').modal();
         $('#myModalLabel').html('Reservacion numero '+numeroDeReserva);
-            // $.getScript(script,function(){
-            //     console.log(script);
-            // });
-  },
-  dataType:"html"
-});
+      },
+      dataType:"html"
+    });
   });
-  
+
+$('body').on('click', '.guardarPagos', function(event) {
+  event.preventDefault();
+  $this=$(this);
+  numeroDeReserva=$("input[name='numeroDeReserva']").val();
+  $.ajax({
+    type:"POST",
+    data:{'fecha':$('#fechaPago').val(),'reserva':$("input[name='numeroDeReserva']").val(),'paymenttype':$("select[name='paymenttype']").val(),'ammount':$("input[name='ammount']").val(),'description':$("input[name='descriptionPago']").val()},
+    url: "reservas/pagos",
+    success: function(data){
+      console.log($this.parent().parent());
+      $tr=$this.closest('tr');
+      $tr.before(data);
+      $('#fechaPago').val('');
+      $('#fechaPago2').val('')
+      $("input[name='numeroDeReserva']").val('');
+      $("select[name='paymenttype']").val('');
+      $("input[name='ammount']").val('');
+      $("input[name='descriptionPago']").val('');
+      url="reservas/"+numeroDeReserva;
+      $('.datosDePagos').load(url+' .datosDePagos');
+      },
+      dataType:"html"
+    });
+});
+$('body').on('click', '.guardarPasajero', function(event) {
+  event.preventDefault();
+  $this=$(this);
+  numeroDeReserva=$("input[name='numeroDeReserva']").val();
+  $.ajax({
+    type:"POST",
+   data:{'name':$("input[name='pasajeroName']").val(),'lastname':$("input[name='pasajeroLastName']").val(),'identification':$("input[name='pasajeroIdentification']").val(),'email':$("input[name='pasajeroEmail']").val(),'phone':$("input[name='pasajeroPhone']").val(),'reserva':$("input[name='numeroDeReserva']").val()},
+    url: "reservas/pasajeros",
+    success: function(data){
+      $tr=$this.closest('tr');
+      $tr.before(data);
+      $("input[name='pasajeroName']").val('');
+      $("input[name='pasajeroLastName']").val('');
+      $("input[name='pasajeroIdentification']").val('');
+      $("input[name='pasajeroEmail']").val('');
+      $("input[name='pasajeroPhone']").val('');
+      },
+      dataType:"text"
+    });
+});
 })
 // });
 // $( document ).ajaxStop(function() {

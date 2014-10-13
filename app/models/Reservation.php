@@ -102,10 +102,10 @@ class Reservation extends \Eloquent {
 		public function getMontoServicio() {
 
 		}
-		public function passenger() {
+		public function passengers() {
 			return $this->hasMany('Passenger');
 		}
-		public function payment() {
+		public function payments() {
 			return $this->hasMany('Payment');
 		}
 		public function client() {
