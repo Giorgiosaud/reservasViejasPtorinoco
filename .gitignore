@@ -6,8 +6,5 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
-
 tests/_output/*
-app/config/database.php
-
 app/config/production/database.php
