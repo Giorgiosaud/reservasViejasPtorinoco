@@ -12,6 +12,9 @@ footer{
 @media print {
  @page {size: landscape}
 }
+td.numeroDeReserva {
+cursor: pointer;
+}
 .panelSuperior{
   float: left;
 }

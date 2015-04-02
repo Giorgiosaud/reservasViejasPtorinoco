@@ -30,14 +30,30 @@ class PaymentAdminController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-		$payment                 = new Payment;
-		$payment->reservation_id = Input::get('reserva');
-		$payment->paymenttype_id = Input::get('paymenttype');
-		$payment->ammount        = Input::get('ammount');
-		$payment->description    = Input::get('description');
-		$payment->date           = Input::get('fecha');
-		$payment->save();
-		$return = '<tr><td>'.$payment->date.'</td><td>'.$payment->paymenttype->name.'</td><td>'.$payment->ammount.'</td><td>'.$payment->description.'</td><td>borrar</td></tr>';
+		$paymentType=Paymenttype::find(Input::get('paymenttype'));
+		$payment                 = new Payment();
+		$payment->ammount=Input::get('ammount');
+		$payment->description=Input::get('description');
+		$payment->date=Input::get('fecha');
+		$payment->paymenttype()->associate($paymentType);
+		$reserva=Reservation::find(Input::get('reserva'));
+		$deuda=$reserva->totalAmmount ;
+		$pagadoPrevio=$reserva->payments()->sum('ammount');
+		$pagadoConPagoActual=$pagadoPrevio+$payment->ammount;
+
+		if($pagadoConPagoActual>=$deuda){
+			$reserva->paymentStatus_id='4';
+		}
+		elseif ($pagadoConPagoActual>0) {
+			$reserva->paymentStatus_id='3';	
+		}
+		else{
+			$reserva->paymentStatus_id='1';
+		}
+		$reserva->payments()->save($payment);
+		$reserva->save();
+		// $payment=Payment::find($reserva->payment->orderBy('created_at','desc')->id);
+		$return = '<tr><td>'.$payment->date.'</td><td>'.$payment->paymenttype->name.'</td><td class="paymentAmmount">'.$payment->ammount.'</td><td>'.$payment->description.'</td><td>borrar</td></tr>';
 		return $return;
 	}
 

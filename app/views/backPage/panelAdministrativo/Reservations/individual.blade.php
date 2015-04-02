@@ -3,7 +3,7 @@
 Reservations
 @stop
 @section('content')
-{{ Form::open(array('id'=>'formularioIndividual','class'=>'individual','method' => 'PUT')) }}
+{{ Form::open(array('id'=>'formularioIndividual','class'=>'individual','method' => 'POST')) }}
 {{ Form::hidden('numeroDeReserva',$Reservacion->id) }}
 {{ Form::hidden('tipoDeEmbarcacion',$Reservacion->boat->id) }}
 {{ Form::hidden('modifiedBy',Auth::user()->name) }}
@@ -24,7 +24,6 @@ $width2      = floor(12/$tours->count())?>
 		@include('backPage.panelAdministrativo.Reservations.individual.datosAbordaje')
 	</div>
 	<div class="panel-footer">
-		{{ Form::submit() }}
 		<div class="btn btn-info btn-lg btn-block guardarCambiosEnReserva">Guardar</div>
 		<div class="btn btn-warning btn-lg btn-block cancelarCambiosEnReserva" data-dismiss="modal">Cancelar</div>
 		<div class="clearfix"></div>

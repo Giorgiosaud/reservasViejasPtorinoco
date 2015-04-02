@@ -13,9 +13,9 @@ return array(
 	|
 	| Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "log"
 	|
-	*/
+	 */
 
-	'driver' => 'smtp',
+	'driver' => 'mail',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,9 +26,9 @@ return array(
 	| applications. A default option is provided that is compatible with
 	| the Mailgun mail service which will provide reliable deliveries.
 	|
-	*/
+	 */
 
-	'host' => 'smtp.mailgun.org',
+	// 'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,9 +39,9 @@ return array(
 	| users of the application. Like the host we have set this value to
 	| stay compatible with the Mailgun e-mail application by default.
 	|
-	*/
+	 */
 
-	'port' => 587,
+	// 'port' => 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,9 +52,9 @@ return array(
 	| the same address. Here, you may specify a name and address that is
 	| used globally for all e-mails that are sent by your application.
 	|
-	*/
+	 */
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'puertorinoco@gmail.com', 'name' => 'Puertorinoco'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,9 +65,9 @@ return array(
 	| the application send e-mail messages. A sensible default using the
 	| transport layer security protocol should provide great security.
 	|
-	*/
+	 */
 
-	'encryption' => 'tls',
+	'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,9 +78,9 @@ return array(
 	| set it here. This will get used to authenticate with your server on
 	| connection. You may also set the "password" value below this one.
 	|
-	*/
+	 */
 
-	'username' => null,
+	// 'username' => 'puertorinoco@gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -91,9 +91,9 @@ return array(
 	| messages from your application. This will be given to the server on
 	| connection so that the application will be able to send messages.
 	|
-	*/
+	 */
 
-	'password' => null,
+	// 'password' => 'catamaran',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -104,7 +104,7 @@ return array(
 	| the path to where Sendmail lives on this server. A default path has
 	| been provided here, which will work well on most of your systems.
 	|
-	*/
+	 */
 
 	'sendmail' => '/usr/sbin/sendmail -bs',
 
@@ -117,7 +117,7 @@ return array(
 	| web and will instead be written to your application's logs files so
 	| you may inspect the message. This is great for local development.
 	|
-	*/
+	 */
 
 	'pretend' => false,
 

@@ -24,13 +24,15 @@ $app = new Illuminate\Foundation\Application;
 |
  */
 
-$env = $app->detectEnvironment(array(
+$env = $app->detectEnvironment(
 
-		'local'       => array('zonapro.loc'),
-		'production'  => array('puertorinoco.com'),
-		'development' => array('zonapro.net')
-
-	));
+	array(
+		'local' => array('puertorinoco.*', '*.puertorinoco'),
+		'local' => array('zonapro.loc'),
+		'production' => array('zonapro.net'),
+		//'development' => array('zonapro.net'),
+	)
+);
 
 /*
 |--------------------------------------------------------------------------

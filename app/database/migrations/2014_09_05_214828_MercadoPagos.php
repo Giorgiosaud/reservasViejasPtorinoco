@@ -12,7 +12,7 @@ class MercadoPagos extends Migration {
 	public function up() {
 		Schema::create('mercadopagos', function ($table) {
 				$table->increments('id');
-				$table->string('idMercadoPago');
+				$table->integer('idMercadoPago')->index()->unsigned();
 				$table->string('site_id');
 				$table->string('operation_type');
 				$table->string('order_id');
@@ -47,8 +47,8 @@ class MercadoPagos extends Migration {
 				$table->string('collectorphonearea_code');
 				$table->string('collectorphonenumber');
 				$table->string('collectorphoneextension')->nullable();
-                $table->timestamps();
-                $table->softDeletes();
+				$table->timestamps();
+				$table->softDeletes();
 			});
 	}
 

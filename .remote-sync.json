@@ -1,0 +1,13 @@
+{
+  "transport": "scp",
+  "hostname": "zonapro.net",
+  "port": 22,
+  "username": "ptori",
+  "password": "OOScgEgTTw",
+  /*"keyfile": "/home/vagrant/.ssh/aws.pem",*/
+  /*"passphrase": "your_passphrase",*/
+  "target": "/home/ptori/web/reservas.puertorinoco.com/public_html/reservas",
+  "ignore": [
+    ".git/**"
+  ]
+}

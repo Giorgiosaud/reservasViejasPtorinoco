@@ -24,6 +24,10 @@ class PaymenttypesTableSeeder extends Seeder {
 		$paymentType->name        = 'Mercadopago';
 		$paymentType->description = 'Pago realizdo por Mercadopago';
 		$paymentType->save();
+		$paymentType              = new Paymenttype;
+		$paymentType->name        = 'Transferencia';
+		$paymentType->description = 'Pago realizdo por Transferencia';
+		$paymentType->save();
 
 	}
 

@@ -6,12 +6,12 @@ class PriceTourTableSeeder extends Seeder {
 
 	public function run() {
 		$Tours = Tour::where('name', '=', 'Playa')->get();
-		$Price = Price::where('description', '=', '2 horas')->first();
+		$Price = Price::where('description', '=', '2 horas')->orderBy('id', 'DESC')->first();
 		foreach ($Tours as $tour) {
 			$tour->prices()->attach($Price->id);
 		}
 		$Tours = Tour::where('name', '=', 'Extra')->orwhere('name', '=', 'Atardecer')->get();
-		$Price = Price::where('description', '=', '1 hora')->first();
+		$Price = Price::where('description', '=', '1 hora')->orderBy('id', 'DESC')->first();
 		foreach ($Tours as $tour) {
 			$tour->prices()->attach($Price->id);
 		}

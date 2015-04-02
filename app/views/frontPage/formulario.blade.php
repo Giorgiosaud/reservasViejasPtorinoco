@@ -5,6 +5,13 @@
 	'class'=>'form-horizontal',
 	'name'=>'formularioDeReserva')
 	) }}
+<?php if (!isset(Auth::user()->name)) {
+	$usuario = 'client';
+} else {
+	$usuario = Auth::user()->name;
+}
+?>
+{{ Form::hidden('usuario',$usuario,array('id'=>'usuario')) }}
 	<div class="form-group" id="datosDelPaseo">
 		<div class="form-group" id="fechaform">
 			{{ Form::label('fecha2', 'Fecha del Paseo', array('class' => 'col-xs-4 control-label')); }}
@@ -91,7 +98,7 @@
 				  			      		              'data-toggle'=>'popover',
 				  			      		              'data-placement'=>'right',
 				  			      		              'data-content'=>'Ingrese Su Nombre',
-				  			      		              'disabled'=>true
+				  			      		              // 'disabled'=>true
 				  			      		              )) }}
 
 				  			      		          </div>
@@ -108,7 +115,7 @@
 				  			      		      		              'data-toggle'=>'popover',
 				  			      		      		              'data-placement'=>'right',
 				  			      		      		              'data-content'=>'Ingrese Su Apellido',
-				  			      		      		              'disabled'=>true
+				  			      		      		              // 'disabled'=>true
 				  			      		      		              )) }}
 				  			      		      		          </div>
 				  			      		      		          @if ($errors->has('lastName')) <p class="help-block">{{ $errors->first('lastName') }}</p> @endif
@@ -124,7 +131,7 @@
 				  			      		      		      		              'data-toggle'=>'popover',
 				  			      		      		      		              'data-placement'=>'right',
 				  			      		      		      		              'data-content'=>'Ingrese un correo electronico Válido',
-				  			      		      		      		              'disabled'=>true
+				  			      		      		      		              // 'disabled'=>true
 				  			      		      		      		              )) }}
 
 				  			      		      		      		          </div>
@@ -141,7 +148,7 @@
 				  			      		      		      		      		              'data-toggle'=>'popover',
 				  			      		      		      		      		              'data-placement'=>'right',
 				  			      		      		      		      		              'data-content'=>'Ingrese un número de telefono Válido (Solo Numero Ej:02869233147)',
-				  			      		      		      		      		              'disabled'=>true
+				  			      		      		      		      		              // 'disabled'=>true
 				  			      		      		      		      		              )) }}
 				  			      		      		      		      		          </div>
 				  			      		      		      		      		          @if ($errors->has('phone')) <p class="help-block">{{ $errors->first('phone') }}</p> @endif
@@ -220,7 +227,7 @@
 				  			      		      		      		      		  				           	           	</div>
 				  			      		      		      		      		  				           	           	<div class="form-group" id="groupcondiciones">
 				  			      		      		      		      		  				           	           		<div class="control-group">
-				  			      		      		      		      		  				           	           			<label for="condiciones" class="col-xs-10 control-label">Acepta los <a class="ifancybox" href="terminosycondiciones.php" data-toggle="modal" data-target="#myModal">Terminos y Condiciones</a> Para el Paseo </label>
+				  			      		      		      		      		  				           	           			<label for="condiciones" class="col-xs-10 text-right">Aceptar <button class="btn btn-link terminosCondiciones" data-toggle="modal" data-target="#myModal">Terminos y condiciones</button></label>
 				  			      		      		      		      		  				           	           			<div class="col-xs-2">
 				  			      		      		      		      		  				           	           				{{ Form::checkbox('condiciones', 'condicionesAceptadas')}}
 				  			      		      		      		      		  				           	           				@if ($errors->has('condiciones')) <p class="help-block">{{ $errors->first('condiciones') }}</p> @endif
@@ -269,10 +276,21 @@
 				  			      		      		      		      		  				           	           			           </div>
 				  			      		      		      		      		  				           	           			       </div>
 				  			      		      		      		      		  				           	           			       {{ Form::close() }}
+				  			      		      		      		      		  				           	           			       <!-- Modal -->
 				  			      		      		      		      		  				           	           			       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  			      		      		      		      		  				           	           			       	<div class="modal-dialog modal-lg">
+				  			      		      		      		      		  				           	           			       	<div class="modal-dialog">
 				  			      		      		      		      		  				           	           			       		<div class="modal-content">
-
+				  			      		      		      		      		  				           	           			       			<div class="modal-header">
+				  			      		      		      		      		  				           	           			       				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				  			      		      		      		      		  				           	           			       				<h4 class="modal-title" id="myModalLabel">Terminos y Condiciones</h4>
+				  			      		      		      		      		  				           	           			       			</div>
+				  			      		      		      		      		  				           	           			       			<div class="modal-body">
+				  			      		      		      		      		  				           	           			       			Debe Registrarse por la Barra de Casabote 30 Min Antes del Zarpe para que su reserva no sea anulada ya que de lo contrario de haber personas en lista de espera estas tomaran su turno
+				  			      		      		      		      		  				           	           			       			</div>
+				  			      		      		      		      		  				           	           			       			<div class="modal-footer">
+				  			      		      		      		      		  				           	           			       				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				  			      		      		      		      		  				           	           			       				<button type="button" class="btn btn-primary aceptarTyC">Aceptar</button>
+				  			      		      		      		      		  				           	           			       			</div>
 				  			      		      		      		      		  				           	           			       		</div>
 				  			      		      		      		      		  				           	           			       	</div>
 				  			      		      		      		      		  				           	           			       </div>

@@ -14,10 +14,10 @@ class AddRelationToPaymentsTable extends Migration {
 		Schema::table('payments', function (Blueprint $table) {
 				$table->integer('reservation_id')->unsigned();
 				$table->foreign('reservation_id')->references('id')->on('reservations')->onUpdate('cascade');
-				$table->integer('paymenttype_id')->unsigned();
+				$table->integer('paymenttype_id')->nullable()->unsigned();
 				$table->foreign('paymenttype_id')->references('id')->on('paymenttypes')->onUpdate('cascade');
 				$table->integer('mercadopago_id')->nullable()->unsigned();
-				$table->foreign('mercadopago_id')->references('id')->on('mercadopagos')->onUpdate('cascade');
+				// $table->foreign('mercadopago_id')->references('idMercadoPago')->on('mercadopagos')->onUpdate('cascade');
 			});
 	}
 
@@ -30,7 +30,7 @@ class AddRelationToPaymentsTable extends Migration {
 		Schema::table('payments', function (Blueprint $table) {
 				$table->dropForeign('payments_reservation_id_foreign');
 				$table->dropForeign('payments_paymenttype_id_foreign');
-				$table->dropForeign('payments_mercadopago_id_foreign');
+				$table->dropColumn('mercadopago_id');
 			});
 	}
 

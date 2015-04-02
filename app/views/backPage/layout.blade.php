@@ -6,7 +6,7 @@
 	@include('includes.backPage.head')
 </head>
 <body>
-	<header role="banner" class="container-fluid">
+	<header role="banner" class="container-fluid hidden-print">
 		<div class="page-header col-sm-12 col-xs-12">
 			<div class="logo logo col-xs-8 col-md-4">
 				<img id="imagenLogo" src="http://www.puertorinoco.com/home/templates/gk_pulse/images/white/logo.png">
@@ -15,7 +15,7 @@
 
 		</div>
 	</header>
-	@include('backPage.PanelAdministrativo.nav.barraDeNavegacion')
+	@include('backPage.panelAdministrativo.nav.barraDeNavegacion')
 	<div class="col-xs-12">
 		<div class="container-fluid" id="PaneldeRespuesta">
 			<div class="jumbotron">

@@ -6,6 +6,7 @@ Reservations
 {{ Form::open(array('id'=>'reload')) }}
 {{ Form::hidden('reservacion',$valores['reservacion']) }}
 {{ Form::hidden('fecha',$valores['fecha']) }}
+{{ Form::hidden('fecha2',$valores['fecha2']) }}
 {{ Form::hidden('hora',$valores['hora']) }}
 {{ Form::hidden('tipoDeEmbarcacion',$valores['tipoDeEmbarcacion']) }}
 {{ Form::hidden('activa',$valores['activa']) }}
@@ -13,6 +14,7 @@ Reservations
 {{ Form::close() }}
 <div class="table-responsive">
 	<table class="table table-bordered table-hover table-condensed">
+	<tr><th colspan="13" class="info text-center">{{ $valores['fecha2'] }}</th></tr>
 		@foreach ($Reservaciones as $Reservacion)
 
 		@if (!isset($boat)||$Reservacion->boat->name!=$boat)
@@ -21,11 +23,22 @@ Reservations
 			<th colspan="13" id="{{ $Reservacion->boat->name }}" class="info text-center">{{ $Reservacion->boat->name }}</th>
 <?php
 $boat = $Reservacion->boat->name;
+$cantidadPasajeros=0;
 ?>
 </tr>
 		@endif
 		@if (!isset($departure)||$Reservacion->tour->departure!=$departure)
-<?php $departure = $Reservacion->tour->departure?>
+
+		@if(isset($departure))
+		<tr>
+			<th colspan="13" class="success text-center"> Total pasajeros en Paseo: {{ $cantidadPasajeros }} Personas</th>
+		</tr>
+		@endif
+<?php $departure = $Reservacion->tour->departure; $cantidadPasajeros=0;
+
+
+?>		
+		
 		<tr>
 			<th colspan="13" class="info text-center">{{ $departure }}</th>
 		</tr>
@@ -34,7 +47,6 @@ $boat = $Reservacion->boat->name;
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Numero de Reserva</th>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Nombre</th>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Apellido</th>
-			<!-- <th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Visitas</th> -->
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">E-mail</th>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Teléfono</th>
 			<th scope="col" headers="{{ $Reservacion->boat->name }}" class="text-center">Adultos</th>
@@ -56,6 +68,9 @@ $boat = $Reservacion->boat->name;
 			<td>{{ $Reservacion->adults }}</td>
 			<td>{{ $Reservacion->olders }}</td>
 			<td>{{ $Reservacion->childs }}</td>
+			<?php
+			$cantidadPasajeros=$cantidadPasajeros+$Reservacion->adults+$Reservacion->olders+$Reservacion->childs
+			?>
 			<td>{{ $Reservacion->adults+$Reservacion->olders+$Reservacion->childs }}</td>
 			<td>{{ $Reservacion->totalAmmount }}</td>
 			<td>{{ $Reservacion->paymentstatus->name }}</td>

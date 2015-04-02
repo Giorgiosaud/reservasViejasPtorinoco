@@ -1,4 +1,4 @@
 <title> @yield('Titulo') </title>
-@include('includes.backpage.meta')
-@include('includes.backpage.css')
-@include('includes.backpage.js')
+@include('includes.backPage.meta')
+@include('includes.backPage.css')
+@include('includes.backPage.js')

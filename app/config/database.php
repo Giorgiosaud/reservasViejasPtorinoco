@@ -55,9 +55,9 @@ return array(
 		'mysql'      => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'admin_dev',
-			'username'  => 'admin_guru',
-			'password'  => 'rye9rUmiP4',
+			'database'  => 'ptori_lar',
+			'username'  => 'ptori_admin',
+			'password'  => 'LhU89Pc1Lz',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

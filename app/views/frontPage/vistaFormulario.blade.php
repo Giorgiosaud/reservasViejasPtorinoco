@@ -9,5 +9,5 @@
 	@include('frontPage.informacion')
 @stop
 @section('informacionAbajo')
-	@include('frontpage.informacionAbajo')
+	@include('frontPage.informacionAbajo')
 @stop

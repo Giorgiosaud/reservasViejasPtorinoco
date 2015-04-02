@@ -47,6 +47,20 @@ class MenuItemsTableSeeder extends Seeder {
 		$menuItem2->url         = 'reservas';
 		$menuItem2->description = 'Configuracion de Paseos y precios';
 		$menuItem2->save();
+		$menuItem              = new Menuitem;
+		$menuItem->name        = "Abordaje";
+		$menuItem->level       = '1';
+		$menuItem->parent_id   = '';
+		$menuItem->url         = '#';
+		$menuItem->description = 'Lo Referente a Abordaje';
+		$menuItem->save();
+		$menuItem2              = new Menuitem;
+		$menuItem2->name        = "Lista De Abordaje";
+		$menuItem2->level       = '2';
+		$menuItem2->parent_id   = $menuItem->id;
+		$menuItem2->url         = 'abordaje';
+		$menuItem2->description = 'Configuracion de Paseos y precios';
+		$menuItem2->save();
 
 	}
 

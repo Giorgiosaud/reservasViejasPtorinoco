@@ -16,9 +16,9 @@ class MakeClientsTable extends Migration {
 				$table->string('name');
 				$table->string('lastname');
 				$table->string('identification')->unique();
-				// $table->string('identificationhashed');
 				$table->string('email')->unique();
 				$table->string('phone');
+				$table->integer('visitas')->default(0);
 				$table->boolean('esAgencia')->default(false);
 				$table->float('credit')->default(0);
 				$table->softDeletes();

@@ -23,9 +23,19 @@ $(document).ready(function() {
       };
 
       for (var i = 0; i < embarcacion.length; i++) {
-        if(window.datos.cupos[embarcacion[i]].disponiblesNormalDia>0){
-          $( "input[value='"+embarcacion[i]+"']" ).parent().removeClass('disabled');
+        if($('#usuario').val()=='client'){
+          if(window.datos.cupos[embarcacion[i]].disponiblesNormalDia>0){
+            $( "input[value='"+embarcacion[i]+"']" ).parent().removeClass('disabled');
+          }
         }
+        else{
+          if(window.datos.cupos[embarcacion[i]].disponiblesMaximoDia>0){
+            $( "input[value='"+embarcacion[i]+"']" ).parent().removeClass('disabled');
+          }
+
+        }
+
+        
       };
 
     },"json");
@@ -33,10 +43,15 @@ $(document).ready(function() {
   });
   $('.boat').on('click', function(event) {
     window.embarcacion=$(this).children().val();
-    cuposNormales=window.datos.cupos[window.embarcacion].disponiblesNormal;
+    if($('#usuario').val()=='client'){
+    cupos=window.datos.cupos[window.embarcacion].disponiblesNormal;
+    }
+    else{
+     cupos=window.datos.cupos[window.embarcacion].disponiblesMaximo; 
+    }
     $('.numeroDeCupos').val(0);
     $('input[name="hora"]').each(function(){
-      cuposhora=cuposNormales[(this).value];
+      cuposhora=cupos[(this).value];
       if(cuposhora>0){
         $($(this).parent()[0]).removeClass('disabled').children('.cupos').html("cupos: "+cuposhora);
       }
@@ -47,7 +62,12 @@ $(document).ready(function() {
   });
   $('.botonhora').click(function(event) {
     window.hora=$(this).children().val();
+    if($('#usuario').val()=='client'){
     window.disponibilidad=window.datos.cupos[window.embarcacion].disponiblesNormal[window.hora];
+    }
+    else{
+     window.disponibilidad=window.datos.cupos[window.embarcacion].disponiblesMaximo[window.hora]; 
+    }
     window.precios=window.datos.cupos[window.embarcacion].precio[window.hora];
     $('.numeroDeCupos').val(0);
   });
@@ -87,9 +107,18 @@ $(document).ready(function() {
     $('#precioAdultos').html(totalMontoAdultos+' Bs.');
     $('#precioMayores').html(totalMontoMayores+' Bs.');
     $('#precioNinos').html(totalMontoNinos+' Bs.');
+    $('#totalReserva').html(totalAPagar+' Bs');
 
   });
-
+  $('.terminosCondiciones').on('click', function(event) {
+    event.preventDefault();
+    $('#myModal').modal('show');
+  });
+  $('.aceptarTyC').on('click', function(event) {
+    event.preventDefault();
+    $('#myModal').modal('hide');
+    $( "input[name='condiciones']" ).prop('checked', true);
+  });
 
   
 	// //Verificar cada Campo

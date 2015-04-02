@@ -1,0 +1,185 @@
+-- 1 USAR BASE DE DATOS VIEJA PARA COMENZAR LA MIGRACION
+USE `ptori_puerto`;
+-- 2 Definir ultimo cliente que se paso a laravel
+set @ultimocliente = IFNULL((select `id` from `ptori_lar`.`clients` ORDER BY `id` DESC limit 1),0);
+-- 2 Definir ultima reserva que se paso a laravel
+set @ultimareserva = IFNULL((select `id` from `ptori_lar`.`reservations` ORDER BY `id` DESC limit 1),0);
+-- 2 Definir ultimo id mp que se paso a laravel
+set @ultimoMp = IFNULL((select `idMercadoPago` from `ptori_lar`.`mercadopagos` ORDER BY `idMercadoPago` DESC limit 1),0);
+set @ultimoPago = IFNULL((select `reservation_id` from `ptori_lar`.`payments` ORDER BY `reservation_id` DESC limit 1),0);
+
+-- 3 BORRAR CLIENTES DUPLICADOS POR EMAIL
+DELETE FROM `clientes` WHERE `idclientes` IN
+(
+	SELECT `idclientes` FROM(
+		SELECT idclientes FROM `clientes` GROUP BY `email` HAVING COUNT(*)>1
+		) AS IDC
+
+);
+
+-- 4 BORRAR CLIENTES DUPLICADOS POR CEDULA
+DELETE FROM `clientes` WHERE `idclientes` IN
+(
+	SELECT `idclientes` FROM(
+		SELECT idclientes FROM `clientes` GROUP BY `cedula` HAVING COUNT(*)>1
+		) AS IDC
+
+);
+
+-- MOSTRAR CLIENTES DUPLICADOS POR EMAIL
+SELECT * FROM `clientes` GROUP BY `email` HAVING COUNT(*)>1;
+
+-- MOSTRAR CLIENTES DUPLICADOS POR CEDULA
+SELECT * FROM `clientes` GROUP BY `cedula` HAVING COUNT(*)>1;
+
+-- ACTUALIZAR TABLA DE RESERVAS CON ID DE CLIENTES DONDE LA CEDULA DE LA RESERVA ES IGUAL A LA DE EL CLIENTE
+UPDATE `reservas`
+	LEFT JOIN
+		`clientes`
+		ON
+		`reservas`.`cedula`=`clientes`.`cedula`
+		SET `reservas`.`client_id` = `clientes`.`idclientes`;
+
+
+-- BORRAR RESERVAS CUYO CLIENT ID SEA NULL Y LA FECHA MENOR A LA DE HOY
+DELETE FROM `reservas` WHERE `client_id` IS NULL AND `fecha`< NOW();
+-- verificar que no existen clientsid null
+SELECT * FROM `reservas` WHERE `client_id` IS NULL;
+
+-- INSERTAR EN LA TABLA DE CLIENTES LOS CLIENTES QUE EXISTAN EN RESERVAS Y NO EN LA TABLA CLIENTES
+INSERT INTO `clientes`(`nombre`,`apellido`,`cedula`,`telefono`,`email`)
+SELECT `nombre`,`apellido`,`cedula`,`telefono`,`email` 
+FROM `reservas`  WHERE `client_id` IS NULL;
+
+-- ACTUALIZAR TABLA DE RESERVAS CON ID DE CLIENTES DONDE LA CEDULA DE LA RESERVA ES IGUAL A LA DE EL CLIENTE
+UPDATE `reservas`
+	LEFT JOIN
+		`clientes`
+		ON
+		`reservas`.`cedula`=`clientes`.`cedula`
+		SET `reservas`.`client_id` = `clientes`.`idclientes`;
+
+
+-- BORRAR RESERVAS QUE NO CUMPLAN CON CRITERIOS Y SEAN MAS VIEJAS QUE EL DIA DE HOY
+DELETE FROM `reservas` WHERE `indice` IN
+(
+	SELECT `indice` FROM(
+		SELECT `indice` FROM `reservas` WHERE `client_id` IS NULL AND `fecha`< CURRENT_DATE()
+		) AS IDC
+
+);
+-- COMPROBAR QUE TODAS LAS RESERVAS TIENEN ID CLIENTE ESTA CONSULTA DEBE DEVOLVER 0 filas
+
+SELECT * FROM `reservas` WHERE `client_id` IS NULL;
+-- ACTUALIZAR VISITAS DE LOS CLIENTES
+UPDATE `clientes` SET `visitas`=IFNULL((SELECT COUNT(`indice`) FROM `reservas` WHERE `clientes`.`idclientes`=`reservas`.`client_id` GROUP BY `client_id` ),0);
+
+-- VERIFICAR CUANTAS RESERVAS TIENE PUERTORINOCO
+SELECT * FROM `clientes` WHERE `idclientes`='2331';
+
+-- COMPROBAR QUE NO EXISTEN CLIENTES CON VISITAS 0
+SELECT * FROM `clientes` WHERE `visitas` IS NULL;
+-- CONSULTAR CLIENTES QUE NO TIENEN RESERVA
+select *
+from `clientes` C left outer join
+     `reservas` R
+     on R.`client_id` = C.`idclientes`
+where R.`indice` is NULL;
+
+-- INSERTAR CLIENTES DE SISTEMA DE RESERVCION VIEJO A LARAVEL
+INSERT INTO 
+`ptori_lar`.`clients` (`id`,`name`,`lastname`,`identification`,`email`,`phone`,`visitas`,`esAgencia`) 
+SELECT 
+`ptori_puerto`.`clientes`.`idclientes`,
+`ptori_puerto`.`clientes`.`nombre`,
+`ptori_puerto`.`clientes`.`apellido`,
+`ptori_puerto`.`clientes`.`cedula`,
+`ptori_puerto`.`clientes`.`email`,
+`ptori_puerto`.`clientes`.`telefono`,
+`ptori_puerto`.`clientes`.`visitas`,
+`ptori_puerto`.`clientes`.`esAgencia`
+FROM `ptori_puerto`.`clientes`
+WHERE `ptori_puerto`.`clientes`.`idclientes`>@ultimocliente;
+
+
+-- MOVER RESERVACIONES A LARAVEL
+
+INSERT INTO `ptori_lar`.`reservations`(`id`,`date`,`references`,`adults`,`olders`,`childs`,`totalAmmount`,`confirmed`,`madeBy`,`client_id`,`boat_id`,`tour_id`,`paymentStatus_id`)
+SELECT 
+`indice`,
+`fecha`,
+`paymentId`,
+`cupos_adultos`,
+`cupos_adultos2`,
+`cupos_mitad`,
+`montoTotal`,
+0 as 'confirmed',
+'cliente' as 'madeBy',
+clientes.`idclientes`,
+1 as 'boat_id',
+CASE `hora`
+ WHEN '1' THEN '1'
+ WHEN '2' THEN '3'
+ WHEN '3' THEN '4'
+ END AS 'hora'
+,
+CASE `pago`
+	WHEN '0' THEN '1'
+	WHEN '1' THEN '4'
+	END AS 'paymentStatus_id'
+from `reservas`
+LEFT JOIN clientes
+ON reservas.cedula=clientes.cedula 
+where idclientes IS NOT NULL AND `indice`>@ultimareserva
+ORDER BY idclientes;
+
+-- BORRAR MERCADOPAGOS NO RELACIONADOS
+
+DELETE FROM `js_mercadopago` WHERE `external_reference` IN
+(
+	SELECT `external_reference` FROM(
+						select `external_reference`
+						from `js_mercadopago` M left outer join
+					    `reservas` R
+					    on R.`indice` = M.`external_reference`
+						where R.`indice` is NULL
+						) AS IDC
+);
+
+
+-- MIGRAR MERCADOPAGOS
+
+INSERT INTO `ptori_lar`.`mercadopagos`(`idMercadopago`,`site_id`,`operation_type`,`order_id`,`external_reference`,`status`,`status_detail`,`payment_type`,`date_created`,`last_modified`,`date_approved`,`money_release_date`,`currency_id`,`transaction_amount`,`shipping_cost`,`finance_charge`,`total_paid_amount`,`net_received_amount`,`reason`,`payerid`,`payerfirst_name`,`payerlast_name`,`payeremail`,`payernickname`,`phonearea_code`,`phonenumber`,`phoneextension`,`collectorid`,`collectorfirst_name`,`collectorlast_name`,`collectornickname`,`collectorphonearea_code`,`collectorphonenumber`,`collectorphoneextension`)
+SELECT
+`idMercadopago`,`siteid`,`operation_type`,`order_id`,`external_reference`,`status`,`status_detail`,`payment_type`,`date_created`,`last_modified`,`date_approved`,`money_release_date`,`currency_id`,`transaction_amount`,`shipping_cost`,`finance_charge`,`total_paid_amount`,`net_received_amount`,`reason`,`payerid`,`payerfirst_name`,`payerlast_name`,`payeremail`,`payernickname`,'+58' as 'phone_area_code', `payerphone`,'' as 'phoneextension',`collectorid`,`collectorfirst_name`,`collectorlast_name`,`collectornickname`,'+58' as 'collector_phone_area_code', `collectorphoneme`,'' as 'collector_phoneextension'
+FROM `js_mercadopago` where `idMercadopago`>@ultimoMp;
+-- VERIFICAR CANTIDADES DE MERCADOPAGOS MIGRADOS
+
+select * from `js_mercadopago`;
+
+-- SELECCIONAR RESERVAS PAGADAS
+SELECT * FROM `reservas` WHERE `pago`=1 AND `paymentMethod` != 'Mercadopago';
+
+select *
+from `js_mercadopago` C left outer join
+     `reservas` R
+     on R.`indice` = C.`external_reference`
+where R.`indice` is not NULL;
+-- INSERTAR PAGOS QUE NO SEAN MERCADOPAGOS EN LARAVEL
+INSERT INTO `ptori_lar`.`payments`(`date`,`ammount`,`description`,`created_at`,`reservation_id`,`paymenttype_id`,`mercadopago_id`)
+SELECT 
+`fecha`,
+`montoTotal`,
+`paymentId`,
+IF(`fechaDeCreacion` = '0000-00-00',NOW(),`fechaDeCreacion`) AS 'created_at',
+`indice`,
+CASE `paymentMethod`
+WHEN 'Efectivo' THEN '1'
+WHEN 'Transferencia' THEN '6'
+WHEN 'Punto' THEN '3'
+WHEN 'Mercadopago' THEN '5'
+END AS 'paymenttype_id',
+CASE `paymentMethod`
+WHEN 'Mercadopago' THEN `paymentId`
+ELSE '' END AS 'mercadopago_id'
+FROM `reservas` WHERE `pago`=1 AND `indice`>@ultimopago;

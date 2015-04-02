@@ -1,5 +1,6 @@
 /bootstrap/compiled.php
 /vendor
+MIGRARDATOSALARAVEL.SQL
 composer.phar
 composer.lock
 .env.*.php

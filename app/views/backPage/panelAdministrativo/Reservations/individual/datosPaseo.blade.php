@@ -34,7 +34,7 @@ $seleccionado = ($boat->name == $Reservacion->boat->name)?'active':'';?>
 				@foreach ($tours as $tour)
 <?php $activo = ($tour->departure == $Reservacion->tour->departure)?true:false;
 $seleccionado = ($tour->departure == $Reservacion->tour->departure)?'active':'';?>
-				<label class="col-xs-{{ $width2 }} btn btn-primary botonhora {{ $seleccionado }}">
+				<label class="{{ $seleccionado }} col-xs-{{ $width2 }} btn btn-primary botonhora tour-{{ $tour->id }}">
 					{{ Form::radio('tour_id',$tour->id,$activo) }}
 					{{ $tour->departure}}<br/>
 					{{ $tour->name}}<br/><span class="cupos">cupos: {{ $datos[$Reservacion->boat->name] ['disponiblesMaximo'][$tour->id]}}</span>

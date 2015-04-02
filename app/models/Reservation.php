@@ -10,7 +10,25 @@ class Reservation extends \Eloquent {
 			$this->attributes['date'] = '';
 		}
 	}
+	public function uptateAmmounts() {
+		$pagosRecibidos                   = $this->payments()->sum('ammount');
+		$precios                          = $this->tour->prices()->orderBy('id', 'DESC')->first();
+		$totalAPagar                      = $this->attributes['adults']*$precios['adult']+$this->attributes['olders']*$precios['older']+$this->attributes['childs']*$precios['child'];
+		$this->attributes['totalAmmount'] = $totalAPagar;
+		$montoDeuda                       = $totalAPagar-$pagosRecibidos;
 
+		if ($montoDeuda <= 0) {
+			$this->attributes['paymentStatus_id'] = '4';
+		} elseif ($montoDeuda > 0) {
+			if ($montoDeuda == $totalAPagar) {
+				if ($this->attributes['paymentStatus_id'] != '2') {
+					$this->attributes['paymentStatus_id'] = '1';
+				}
+			} else {
+				$this->attributes['paymentStatus_id'] = '3';
+			}
+		}
+	}
 	public function getdateAttribute() {
 		$tmpdate = $this->attributes['date'];
 		if ($tmpdate == "0000-00-00" || $tmpdate == "") {

@@ -13,10 +13,7 @@ class MakePaymentsTable extends Migration {
 	public function up() {
 		Schema::create('payments', function (Blueprint $table) {
 				$table->increments('id');
-				// $table->integer('reservation_id')->unsigned();
 				$table->date('date');
-				// $table->integer('paymenttype_id')->unsigned();
-				// $table->integer('mercadopago_id')->unsigned();
 				$table->float('ammount')->default(0);
 				$table->text('description');
 				$table->timestamps();

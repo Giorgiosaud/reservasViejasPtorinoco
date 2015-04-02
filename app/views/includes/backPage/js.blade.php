@@ -1,1 +1,1 @@
-{{ HTML::script('js/backpage/adminpanel.js') }}
+{{ HTML::script('js/backPage/adminpanel.js') }}

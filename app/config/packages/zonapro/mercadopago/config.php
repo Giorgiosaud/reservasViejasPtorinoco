@@ -19,6 +19,6 @@ return [
 	|
 	 */
 	'mp_secret'       => '23sOsWMad8ZuWt7lMkZ6QlG3ChTv3cFP',
-	'mp_sandbox_mode' => True
+	'mp_sandbox_mode' => False
 
 ];

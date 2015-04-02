@@ -167,12 +167,12 @@ $totalCuposEnPaseo = $adultos+$mayores+$ninos;
 							</td>
 						</tr>
 						@if($reservacion->montoConServicioEscrito>0)
-						<tr class="hidden-print">
+						{{-- <tr class="hidden-print">
 							<td colspan="2" class="text-center">
 								<a href="{{ $linkmp }}" name="MP-Checkout" class="lightblue-ar-s-ov" mp-mode="modal" onreturn="execute_my_onreturn">Pagar</a>
 							</a>
 						</td>
-					</tr>
+					</tr>--}}
 					@endif
 				</tr>
 			</table>

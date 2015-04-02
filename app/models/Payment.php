@@ -1,7 +1,7 @@
 <?php
 
 class Payment extends \Eloquent {
-	// protected $fillable = array('reservation_id', 'ammount', 'description', 'reservation_id', 'paymenttype_id');
+	protected $fillable = array('mercadopago_id');
 	public function reservation() {
 		return $this->belongsTo('Reservation');
 	}

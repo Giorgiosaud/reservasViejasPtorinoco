@@ -128,7 +128,7 @@ class ReservationAdminController extends \BaseController {
 	 */
 	public function update($id) {
 		$inputs                  = Input::all();
-		$Reserva                 = Reservation::find($id);
+		$Reserva                 = Reservation::withTrashed()->find($id);
 		$cliente                 = Client::find($Reserva->client_id);
 		$cliente->name           = $inputs['name'];
 		$cliente->lastname       = $inputs['lastname'];
@@ -136,8 +136,43 @@ class ReservationAdminController extends \BaseController {
 		$cliente->email          = $inputs['email'];
 		$cliente->phone          = $inputs['phone'];
 		$cliente->save();
+		$respuesta            = 'Los Datos de Cliente Fueron Actualizados Correctamente';
+		$paseosConDatosNuevos = Reservation::where('date', '=', $inputs['fecha'])->where('tour_id', '=', $inputs['tour_id'])->where('boat_id', '=', $inputs['boat_id'])->where('id', '!=', $id)->get();
+		if ($paseosConDatosNuevos->count() > 0) {
+			$ocupadosEnPaseoNuevo = $paseosConDatosNuevos->sum('adults')+$paseosConDatosNuevos->sum('olders')+$paseosConDatosNuevos->sum('childs');
+		} else {
+			$ocupadosEnPaseoNuevo = 0;
+		}
+		$disponibilidadMaximaPaseoNuevo   = Boat::find($inputs['boat_id'])->abordajemaximo;
+		$disponibilidadConPasajerosNuevos = $disponibilidadMaximaPaseoNuevo-($ocupadosEnPaseoNuevo+$inputs['adults']+$inputs['olders']+$inputs['childs']);
+		if ($disponibilidadConPasajerosNuevos >= 0) {
+			$Reserva->date         = $inputs['fecha'];
+			$Reserva->references   = $inputs['references'];
+			$Reserva->adults       = $inputs['adults'];
+			$Reserva->olders       = $inputs['olders'];
+			$Reserva->childs       = $inputs['childs'];
+			$Reserva->totalAmmount = $inputs['montoTotal'];
+			$Reserva->confirmed    = $inputs['confirmed'];
+			$Reserva->modifiedBy   = $inputs['modifiedBy'];
+			$Reserva->boat_id      = $inputs['boat_id'];
+			$Reserva->tour_id      = $inputs['tour_id'];
+			$Reserva->save();
+			$respuesta .= ' y Cambiada Reserva';
+		} else {
+			$respuesta .= ' y la Reserva No pudo ser Modificada por no haber Disponibilidad';
+		}
+		if($inputs['status']=='Inactivo'){
+			if(!$Reserva->trashed()){
+				$Reserva->delete();
+			}
+		}
+		if($inputs['status']=='Activo'){
+			if($Reserva->trashed()){
+				$Reserva->restore();
+			}
+		 }
 		echo '<pre>';
-		var_dump(Input::all());
+		echo $respuesta;
 		echo '</pre>';
 	}
 

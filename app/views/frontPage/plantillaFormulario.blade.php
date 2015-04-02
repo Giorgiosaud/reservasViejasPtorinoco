@@ -13,7 +13,7 @@
 
 	<div class="container" id="contenedor">
 		<legend>Reservas On-Line</legend>
-		<div class="col-xs-8">
+<div class="col-xs-8">
 			@yield('body')
 		</div>
 		<div class="col-xs-4" id="informacionGeneral">
@@ -21,7 +21,7 @@
 		</div>
 		<div class="clearfix"></div>
 		@yield('informacionAbajo')
-		<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<!-- <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 

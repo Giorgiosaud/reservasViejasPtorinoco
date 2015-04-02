@@ -5,7 +5,7 @@ clear: both;
 	.page-break	{ display: none; }
 }
 
-
+@media print{@page {size: landscape}}
 
 body{
 	background: url('images/caroni.jpg');
